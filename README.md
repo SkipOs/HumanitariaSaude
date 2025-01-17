@@ -1,6 +1,7 @@
 # HumanitariaSaude
 Este é um projeto desenvolvido em PHP utilizando o framework Laravel. Este README.md fornece as instruções para configurar o ambiente de desenvolvimento e executar o projeto localmente.
 
+![hs_title](https://github.com/user-attachments/assets/e3089e83-ad15-4c3f-a6c6-b1b099e0699b)
 
 ## Pré-requisitos
 Antes de começar, certifique-se de que os seguintes requisitos estão instalados no seu sistema:
@@ -100,6 +101,9 @@ npm run dev
 ```bash
 php artisan serve
 ```
+
+2. Inicie o servidor do banco de dados MySQL:
+Pode ser feito através da interface gráfica do XAMPP
 
 O projeto estará disponível no navegador em [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
