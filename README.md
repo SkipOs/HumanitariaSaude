@@ -11,8 +11,7 @@ Antes de começar, certifique-se de que os seguintes requisitos estão instalado
 4. **Node.js e NPM**
 5. **XAMPP**
 
----
-
+ 
 ## Instalação do Laravel e Composer
 
 ### 1. Instale o Composer
@@ -29,7 +28,6 @@ composer --version
 ### 2. Instale o Laravel
 Você pode instalar o Laravel globalmente usando seguindo o guia presente em [laravel.com/](https://laravel.com/docs/11.x#installing-php), utilizando o Laravel Herd presente em [herd.laravel.com](https://herd.laravel.com/docs/windows/getting-started/installation) do ou iniciar um novo projeto diretamente. No caso deste projeto, o Laravel já está incluído no arquivo `composer.json`.
 
----
 
 ## Configuração do Projeto
 
@@ -93,7 +91,7 @@ npm install
 npm run dev
 ```
 
----
+ 
 
 ## Executando o Projeto
 
@@ -105,8 +103,7 @@ php artisan serve
 
 O projeto estará disponível no navegador em [http://127.0.0.1:8000](http://127.0.0.1:8000).
 
----
-
+ 
 ## Ferramentas e Dependências
 
 - Laravel Framework: ^11.31
