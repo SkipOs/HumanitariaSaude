@@ -1,7 +1,6 @@
 # HumanitariaSaude
 Este é um projeto desenvolvido em PHP utilizando o framework Laravel. Este README.md fornece as instruções para configurar o ambiente de desenvolvimento e executar o projeto localmente.
 
----
 
 ## Pré-requisitos
 Antes de começar, certifique-se de que os seguintes requisitos estão instalados no seu sistema:
