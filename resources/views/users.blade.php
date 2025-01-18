@@ -3,6 +3,11 @@
         Lista de Usuários
     </x-slot:heading>
 
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <x-input type="text" value="" class="form-control form-control-rounded" placeholder="Buscar..."/>
+        </div>
+    </div>
     @foreach ($users as $user)
         <div class="col-4">
             <div class="card">

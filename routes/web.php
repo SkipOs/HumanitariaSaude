@@ -3,31 +3,67 @@
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 use App\Models\Usuario;
 
-
-Route::view('/', 'dashboards.home');
-Route::view('/contact', 'contact');
-Route::view('/profile', 'dashboards.profile');
-
-//controller logo mais vvvvvv
-Route::get('/users', function (){
-    $users = Usuario::with('paciente')->latest()->paginate(9);
-    
-    return view('users', [
-        'users' => $users
-    ]);
-});
-
-Route::get('/user/{id}', function ($id){
-    $user = Usuario::find($id);
-
-    return view('user', ['user' => $user]);
-});
-
-// Auth
+// Auth/Logins
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
+
+// Dashboards
+Route::view('/', 'dashboards.home_admin');
+
+Route::view('/dpaciente', 'dashboards.home_paciente');
+
+Route::view('/dprofissional', 'dashboards.home_profissional');
+
+///Route::view('/dadmin', 'dashboards.home_admin');
+
+// Comuns
+Route::view('/prontuario', 'prontuario');
+
+Route::view('/profile', 'dashboards.profile');
+
+// VIEWS DO ADMIN
+//Route::view('','');
+Route::get('/pacientes', function () {
+    $users = DB::table('usuarios')->where('tipo', '=', 'paciente')->join('pacientes', 'usuarios.idUsuario', '=', 'pacientes.idUsuario')->get();
+
+    return view('admin.pacientes', ['users' => $users]);
+});
+
+// VIEWS DO PACIENTE
+Route::get('/pep', function () {
+    return view('paciente.exame-pendentes');
+});
+
+Route::get('/phc', function () {
+    return view('paciente.consulta-historico');
+});
+
+Route::get('/pca', function () {
+    return view('paciente.consulta-agenda');
+});
+
+// VIEWS DE PROFISSIONAIS DE SAUDE
+Route::get('/psa', function () {
+    return view('profissional.agenda');
+});
+
+// Observar usuários
+Route::get('/users', function () {
+    $users = Usuario::with('paciente')->latest()->paginate(9);
+
+    return view('users', [
+        'users' => $users,
+    ]);
+});
+
+Route::get('/user/{id}', function ($id) {
+    $user = Usuario::find($id);
+
+    return view('user', ['user' => $user]);
+});

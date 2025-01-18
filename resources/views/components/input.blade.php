@@ -1,9 +1,6 @@
- 
-@props(['tabler' => 'col-md'])
- 
-<div class={{$tabler}}>
-    <label>{{$slot}}</label>
-    <div>
-        <input {{ $attributes }} />
-    </div>
-</div>
+ @props(['tabler' => 'mb-3'])
+
+ <label>{{ $slot }}</label>
+ <div class={{ $tabler }}>
+    <input {{ $attributes }} />
+ </div>

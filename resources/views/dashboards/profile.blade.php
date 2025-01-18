@@ -5,61 +5,59 @@
 
     <div class="card">
         <div class="row g-0">
-            <div class="col-12 flex-column">
+            <div class="col-12 d-flex flex-column">
                 <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col-auto"><span class="avatar avatar-xl"
+                    <!-- Cabeçalho do Perfil -->
+                    <div class="row align-items-center mb-4">
+                        <div class="col-auto">
+                            <span class="avatar avatar-xl"
                                 style="background-image: url(./static/avatars/000m.jpg)">M</span>
                         </div>
-                        <div class="row align-items-middle col-auto">
-                            <h2 class="mb-2">Minha Conta</h2>
+                        <div class="col">
+                            <h2 class="mb-0">Minha Conta</h2>
                         </div>
                     </div>
 
-                    <h3 class="card-title mt-4">Detalhes do Perfil</h3>
-                    <x-input tabler="col-md" type="text" class="form-control" value="Tabler">Nome do
-                        Usuário</x-input>
-                    <x-input tabler="col-md" type="nome" class="form-control"
-                        placeholder="Insira o seu Nome">Nome</x-input>
+                    <!-- Detalhes do Perfil -->
+                    <h3 class="card-title">Detalhes do Perfil</h3>
+                    <x-input type="text" class="form-control" placeholder="Insira o seu Nome">Nome</x-input>
 
-                    <x-input tabler="col-md" type="text" class="form-control" value="Tabler">Informações</x-input>
-                    <div class="row g-3">
-                        <x-input tabler="mb-3" type="cpf" class="form-control"
-                            placeholder="Insira o CPF">CPF</x-input>
-                        <x-input tabler="mb-3" type="email" class="form-control" placeholder="__ /__ /____">Data de
-                            Nascimento</x-input>
+                    <!-- Informações Gerais -->
+                    <h3 class="card-title mt-4">Informações Gerais</h3>
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <x-input type="text" class="form-control" placeholder="Insira o CPF">CPF</x-input>
+                        </div>
+                        <div class="col-md-4">
+                            <x-input type="date" class="form-control">Data de Nascimento</x-input>
+                        </div>
+                    </div>
+                    <div class="row g-2 mt-2" style="align-items: flex-end;">
+                        <div class="col-md-4">
+                            <x-input type="text" class="form-control" placeholder="Cidade, Estado">Endereço</x-input>
+                            <x-button class="btn">Alterar</x-button>
+                        </div>
+                        <div class="col-md-4">
+                            <x-input type="tel" class="form-control"
+                                placeholder="Digite seu Telefone">Telefone</x-input>
+                            <x-button class="btn alig">Alterar</x-button>
+                        </div>
                     </div>
 
-                    <div class="row g-3">
-                        <x-input tabler="mb-3" type="endereco" class="form-control"
-                            placeholder="Cidade, Estado">Endereço</x-input>
-                        <x-button>Alterar</x-button>
-                    </div>
-                    <div class="row g-3">
-                        <x-input tabler="mb-3" type="telefone" class="form-control"
-                            placeholder="Digite seu Telefone">Telefone</x-input>
-                        <x-button>Alterar</x-button>
-
-                    </div>
-
-
+                    <!-- Segurança -->
                     <h3 class="card-title mt-4">Segurança</h3>
-                    <p class="card-subtitle">Você pode trocar sua senha clicando no botão</p>
-                    <x-button>Trocar a senha</x-button>
+                    <p class="card-subtitle">Você pode trocar sua senha clicando no botão abaixo.</p>
+                    <x-button class="btn">Trocar a senha</x-button>
                 </div>
 
+                <!-- Rodapé do Cartão -->
                 <div class="card-footer bg-transparent mt-auto">
                     <div class="btn-list justify-content-end">
-                        <a href="#" class="btn">
-                            Cancelar
-                        </a>
-                        <a href="#" class="btn btn-primary">
-                            Salvar
-                        </a>
+                        <a href="#" class="btn">Cancelar</a>
+                        <a href="#" class="btn btn-primary">Salvar</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </x-layout>

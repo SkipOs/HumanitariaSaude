@@ -3,7 +3,7 @@
         <x-slot:title>Realizar login</x-slot:title>
         <script src="https://unpkg.com/imask"></script>
 
-        <x-input type="text" name="cpf" class="form-control" data-mask="000.000.000-00" data-mask-visible="true" placeholder="000.000.000-00" autocomplete="off">Senha</x-input>
+        <x-input type="text" name="cpf" class="form-control" data-mask="000.000.000-00" data-mask-visible="true" placeholder="000.000.000-00" autocomplete="off">CPF</x-input>
 
         <x-input type="password" class="form-control" placeholder="••••••••">Senha</x-input>
 
