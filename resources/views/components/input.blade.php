@@ -2,5 +2,5 @@
 
  <label>{{ $slot }}</label>
  <div class={{ $tabler }}>
-    <input {{ $attributes }} />
+    <input {{ $attributes }}/>
  </div>

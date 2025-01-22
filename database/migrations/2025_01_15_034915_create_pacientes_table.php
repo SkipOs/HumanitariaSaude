@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pacientes', function (Blueprint $table) {
-            $table->bigInteger('cpf')->primary();
+            $table->id('cpf')->primary();
             $table->foreignIdFor(Usuario::class,'idUsuario');
             $table->date('dataNascimento');
             $table->text('endereco')->nullable();

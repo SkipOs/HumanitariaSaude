@@ -13,8 +13,8 @@ class ConsultaFactory extends Factory
     {
         return [
             'idInstituicao' => \App\Models\Instituicao::factory(),
-            'idProfissionalSaude' => \App\Models\ProfissionalSaude::factory(),
-            'idPaciente' => \App\Models\Paciente::factory(),
+            'crm' => \App\Models\ProfissionalSaude::factory(),
+            'cpf' => \App\Models\Paciente::factory(),
             'idAgendamento' => \App\Models\Agendamento::factory(),
             'motivo' => $this->faker->sentence,
         ];

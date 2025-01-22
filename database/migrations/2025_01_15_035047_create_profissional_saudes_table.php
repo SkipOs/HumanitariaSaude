@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profissional_saudes', function (Blueprint $table) {
-            $table->bigInteger('crm')->primary();
+            $table->id('crm')->primary();
             $table->foreignIdFor(Usuario::class,'idUsuario');
             $table->string('especialidade')->nullable();
             $table->timestamps();

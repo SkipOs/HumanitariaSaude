@@ -47,7 +47,7 @@
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="/">
-                        <img src="https://media.discordapp.net/attachments/928762052300906506/1328989119832920115/hs_log.png?ex=678d5251&is=678c00d1&hm=9670b2c102462e755e8f82ba4a93f41992c380029b3a952cd3ff8be6d364ec6a&=&format=webp&quality=lossless&width=426&height=427"
+                        <img src="https://skip0s.neocities.org/img/hs_log.png"
                             width="32" height="32" alt="HSaúde" class="">
                     </a>
                 </h1>
@@ -141,7 +141,6 @@
                     <div class="row row-deck row-cards" >
                         <!-- Cards -->
                         {{ $slot }}
-
                     </div>
                 </div>
             </div>

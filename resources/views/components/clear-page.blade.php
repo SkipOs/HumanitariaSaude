@@ -43,7 +43,7 @@
     <div class="page page-center" style="padding-top: 10px;">
         <div class="container container-tight py-4">
             <div class="text-center mb-4" >
-                <img src="https://media.discordapp.net/attachments/928762052300906506/1329496258850590811/hs_title.png?ex=678a8d60&is=67893be0&hm=06a3428825c267537eb705c0268eba204efe07b723491cb992f942a81699f25f&=&format=webp&quality=lossless"
+                <img src="https://skip0s.neocities.org/img/hs_title.png"
                     height="36" alt="HSaúde" class="">
             </div>
             {{ $slot }}

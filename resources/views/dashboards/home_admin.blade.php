@@ -17,11 +17,11 @@ use App\Models\Exame;
         <div class="row g-3">
             <!-- Pacientes Cadastrados -->
             <div class="col-md-4">
-                <a href="/pacientes">
+                <a href="/ag/pacientes">
                     <x-card>
                         <span class="text-secondary">{{Paciente::count();}}</span>
                         <x-slot:title>Pacientes</x-slot:title>
-                        <x-slot:subtitle>Detalhes no painel de pacientes</x-slot:subtitle>
+                        <x-slot:subtitle>Gerenciamento no painel de pacientes</x-slot:subtitle>
                         <x-slot:bgColor>bg-azure</x-slot:bgColor>
                         <x-slot:icon>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -41,7 +41,7 @@ use App\Models\Exame;
 
             <!-- Admins Cadastrados -->
             <div class="col-md-4">
-                <a href="#">
+                <a href="/ag/administrador">
                     <x-card>
                         <span class="text-secondary">{{Administrador::count();}}</span>
                         <x-slot:title>Admins</x-slot:title>
@@ -70,7 +70,7 @@ use App\Models\Exame;
 
             <!-- Profissionais Cadastrados -->
             <div class="col-md-4">
-                <a href="#">
+                <a href="/ag/profissional_saudes">
                     <x-card>
                         <span class="text-secondary">{{ProfissionalSaude::count();}}</span>
                         <x-slot:title>Profissionais</x-slot:title>
@@ -94,7 +94,7 @@ use App\Models\Exame;
 
             <!-- Instituições Cadastrados -->
             <div class="col-md-4">
-                <a href="#">
+                <a href="/ag/instituicaos">
                     <x-card>
                         <span class="text-secondary">{{Instituicao::count();}}</span>
                         <x-slot:title>Instituições</x-slot:title>
@@ -118,7 +118,7 @@ use App\Models\Exame;
 
             <!-- Consultas Realizadas -->
             <div class="col-md-4">
-                <a href="#">
+                <a href="/ag/consultas">
                     <x-card>
                         <span class="text-secondary">{{Consulta::count();}}</span>
                         <x-slot:title>Consultas Realizadas</x-slot:title>
@@ -143,7 +143,7 @@ use App\Models\Exame;
 
             <!-- Exames Realizados -->
             <div class="col-md-4">
-                <a href="#">
+                <a href="/ag/exames">
                     <x-card>
                         <span class="text-secondary">{{Exame::count();}}</span>
                         <x-slot:title>Exames Realizados</x-slot:title>

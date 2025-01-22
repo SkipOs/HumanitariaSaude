@@ -18,8 +18,8 @@ return new class extends Migration
         Schema::create('consultas', function (Blueprint $table) {
             $table->id('idConsulta');
             $table->foreignIdFor(Instituicao::class,'idInstituicao');
-            $table->foreignIdFor(ProfissionalSaude::class,'idProfissionalSaude');
-            $table->foreignIdFor(Paciente::class,'idPaciente');
+            $table->foreignIdFor(ProfissionalSaude::class,'crm');
+            $table->foreignIdFor(Paciente::class,'cpf');
             $table->foreignIdFor(Agendamento::class,'idAgendamento')->nullable();
             $table->text('motivo')->nullable();
             $table->timestamps();

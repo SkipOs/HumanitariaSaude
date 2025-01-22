@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Models\Usuario;
@@ -11,7 +12,13 @@ Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/login', [SessionController::class, 'create']);
-Route::post('/login', [SessionController::class, 'store']);
+Route::post('/login', [SessionController::class, 'login']);
+
+//Route::middleware('auth')->group(function () {
+//    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+//    Route::get('/paciente/dashboard', [PacienteDashboardController::class, 'index']);
+//    Route::get('/profissional/dashboard', [ProfissionalDashboardController::class, 'index']);
+//});
 
 // Dashboards
 Route::view('/', 'dashboards.home_admin');
@@ -35,6 +42,15 @@ Route::get('/pacientes', function () {
     return view('admin.pacientes', ['users' => $users]);
 });
 
+Route::get('/ag/{tabela}', function ($tabela) {
+    //$tabela = 'usuarios';
+    $data = DB::table($tabela)->get();
+   // dd($data);
+    return view('admin.gerenciar', ['tableName' => $tabela, 'data' => $data]);
+});
+
+
+
 // VIEWS DO PACIENTE
 Route::get('/pep', function () {
     return view('paciente.exame-pendentes');
@@ -55,12 +71,15 @@ Route::get('/psa', function () {
 
 // Observar usuários
 Route::get('/users', function () {
-    $users = Usuario::with('paciente')->latest()->paginate(9);
+    $users = Usuario::with('paciente')->latest()->simplePaginate(9);
 
     return view('users', [
         'users' => $users,
     ]);
 });
+
+Route::get('/search-users', [UserController::class, 'search']);
+
 
 Route::get('/user/{id}', function ($id) {
     $user = Usuario::find($id);

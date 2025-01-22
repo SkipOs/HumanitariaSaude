@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Paciente::class,'cpf');
             $table->timestamps();
         });
-        
+
     }
 
     /**
