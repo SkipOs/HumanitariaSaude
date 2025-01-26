@@ -56,7 +56,6 @@ class RegisteredUserController extends Controller
             'telefone' => $request->input('telefone'),
         ]);
 
-
         // Redirecionar para a página de login
         return redirect('/')->with('success','Cadastro realizado com sucesso!');
     }

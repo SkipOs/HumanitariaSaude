@@ -1,3 +1,7 @@
+@php
+    $data
+@endphp
+
 <x-layout>
     <x-slot:heading>
         Próximas Consultas
@@ -15,18 +19,19 @@
                     <th>Ações</th>
                 </x-slot:headers>
                 <x-slot:rows>
-                    <!-- Exemplo de Dados -->
-                    <tr>
-                        <td>1</td>
-                        <td>20/01/2025</td>
-                        <td>14:00</td>
-                        <td>Dra. Maria Oliveira</td>
-                        <td>Cardiologia</td>
-                        <td>
-                            <x-action-button href="#" color="info">Ver Mais</x-action-button>
-                        </td>
+@foreach ( $data as $row)
+<tr>
+    <td>1</td>
+    <td>20/01/2025</td>
+    <td>14:00</td>
+    <td>Dra. Maria Oliveira</td>
+    <td>Cardiologia</td>
+    <td>
+        <x-action-button href="#" color="info">Ver Mais</x-action-button>
+    </td>
 
-                    </tr>
+</tr>
+@endforeach
                 </x-slot:rows>
             </x-table>
         </div>

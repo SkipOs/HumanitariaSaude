@@ -17,6 +17,6 @@ class Administrador extends Model
     // Relacionamentos
     public function usuario()
     {
-        return $this->belongsTo(Usuario::class, 'idAdmin');
+        return $this->belongsTo(Usuario::class, 'idUsuario');
     }
 }

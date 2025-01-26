@@ -1,3 +1,7 @@
+@php
+    $user = Auth::user();
+@endphp
+
 <!doctype html>
 <!--
 * Tabler - Premium and Open Source dashboard template with responsive and high quality UI.
@@ -47,8 +51,8 @@
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="/">
-                        <img src="https://skip0s.neocities.org/img/hs_log.png"
-                            width="32" height="32" alt="HSaúde" class="">
+                        <img src="https://skip0s.neocities.org/img/hs_log.png" width="32" height="32"
+                            alt="HSaúde" class="">
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
@@ -58,8 +62,8 @@
                             aria-label="Open user menu">
                             <span class="avatar avatar-sm" style="bg-indigo">N</span>
                             <div class="d-none d-xl-block ps-2">
-                                <div>Nome Usuario</div>
-                                <div class="mt-1 small text-secondary">Função</div>
+                                <div>{{ $user->nome }}</div>
+                                <div class="mt-1 small text-secondary">{{ $user->tipo }}</div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" data-bs-theme="light">
@@ -67,55 +71,13 @@
                             <a href="#" class="dropdown-item">Configurações</a>
                             <a href="#" class="dropdown-item">Notificações</a>
                             <div class="dropdown-divider"></div>
-                            <a href="/login" class="dropdown-item">Logout</a>
+                            <a href="/logout" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                 </div>
-                <div class="collapse navbar-collapse" id="navbar-menu">
-                    <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch ali$gn-items-md-center">
-                        <ul class="navbar-nav">
-                            <x-dropdown-menu :active="request()->is('/')">Homes<x-slot:icon><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-home">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M5 12l-2 0l9 -9l9 9l-2 0" />
-                                        <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
-                                        <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
-                                    </svg></x-slot:icon>
-                                    <x-slot:dropdowncontent>
-                                        <x-dropdown-item href="/" >Admin</x-dropdown-item>
-                                        <x-dropdown-item href="/dpaciente">Paciente</x-dropdown-item>
-                                        <x-dropdown-item href="/dprofissional">Profissional</x-dropdown-item>
-                                    </x-slot:dropdowncontent>
-                                </x-dropdown-menu>
-                            <x-nav-link href="/users" :active="request()->is('users')">Usuários<x-slot:icon><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-user">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                        <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                                    </svg></x-slot:icon></x-nav-link>
-                            <x-nav-link href="/prontuario" :active="request()->is('prontuario')">Prontuarios<x-slot:icon><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round"
-                                        class="icon icon-tabler icons-tabler-outline icon-tabler-address-book">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M20 6v12a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2z" />
-                                        <path d="M10 16h6" />
-                                        <path d="M13 11m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-                                        <path d="M4 8h3" />
-                                        <path d="M4 12h3" />
-                                        <path d="M4 16h3" />
-                                    </svg></x-slot:icon></x-nav-link>
-                        </ul>
-                    </div>
-                </div>
+                <x-navbar>
+                    
+                </x-navbar>
             </div>
         </header>
         <div class="page-wrapper">
@@ -137,8 +99,8 @@
             </div>
             <!-- Page body -->
             <div class="page-body">
-                <div class="container-xl" >
-                    <div class="row row-deck row-cards" >
+                <div class="container-xl">
+                    <div class="row row-deck row-cards">
                         <!-- Cards -->
                         {{ $slot }}
                     </div>

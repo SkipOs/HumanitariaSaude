@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Administrador;
 use App\Models\Paciente;
+use App\Models\ProfissionalSaude;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use App\Http\Controllers\PacienteController;
 
 class SessionController extends Controller
 {
@@ -35,26 +38,65 @@ class SessionController extends Controller
         ]);
 
         // Verificar se o CPF existe na tabela pacientes
-        $paciente = Paciente::where('cpf', $request->cpf)->first();
+        $usuario = Paciente::where('cpf', $request->cpf)->first();
 
-        if ($paciente && Hash::check($request->senha, $paciente->usuario->senha)) {
+        if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
             // Login bem-sucedido
-            Auth::login($paciente->usuario);  // Logar no sistema com base no usuário associado ao paciente
-
+            Auth::login($usuario->usuario); // Logar no sistema com base no usuário associado ao paciente
             // Redirecionar para a página de dashboard com base no tipo de usuário
-            switch ($paciente->usuario->tipo) {
-                case 'administrador':
-                    return redirect('/');
-                case 'paciente':
-                    return redirect('/');
-                case 'profissionalSaude':
-                    return redirect('/');
-                default:
-                    return redirect('/login')->with('error', 'Tipo de usuário desconhecido.');
-            }
+            return redirect('/');
+
         } else {
             // Caso o login falhe
             return redirect()->back()->with('error', 'CPF ou senha inválidos.');
+        }
+    }
+
+    public function loginAdmin(Request $request)
+    {
+        // Validar os dados de entrada
+        $request->validate([
+            'telefone' => ['required'],
+            'senha' => ['required', Password::min(4)],
+        ]);
+
+        // Verificar se o Telefone existe na tabela pacientes
+        $usuario = Administrador::where('telefone', $request->telefone)->first();
+        //dd($usuario->usuario);
+
+        if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
+            // Login bem-sucedido
+            Auth::login($usuario->usuario); // Logar no sistema com base no usuário associado ao admin
+
+            // Redirecionar para a página de dashboard com base no tipo de usuário
+            return redirect('/');
+
+        } else {
+            // Caso o login falhe
+            return redirect()->back()->with('error', 'Telefone ou senha inválidos.');
+        }
+    }
+
+    public function loginProfissonal(Request $request)
+    {
+        // Validar os dados de entrada
+        $request->validate([
+            'crm' => ['required'],
+            'senha' => ['required', Password::min(4)],
+        ]);
+
+        // Verificar se o crm existe na tabela pacientes
+        $usuario = ProfissionalSaude::where('crm', $request->crm)->first();
+
+        if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
+            // Login bem-sucedido
+            Auth::login($usuario->usuario); // Logar no sistema com base no usuário associado ao paciente
+            // Redirecionar para a página de dashboard com base no tipo de usuário
+            return redirect('/');
+
+        } else {
+            // Caso o login falhe
+            return redirect()->back()->with('error', 'CRM ou senha inválidos.');
         }
     }
 }
