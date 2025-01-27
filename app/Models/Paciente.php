@@ -21,7 +21,7 @@ class Paciente extends Model
 
     public function prontuarios()
     {
-        return $this->hasMany(Prontuario::class, 'cpf');
+        return $this->hasOne(Prontuario::class, 'cpf');
     }
 
     public function consultas()

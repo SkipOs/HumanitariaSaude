@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
 
-// Auth/Logins
+// Auth/Logins/Logout
 Route::get('/register', [RegisteredUserController::class, 'create']);
 Route::post('/register', [RegisteredUserController::class, 'store']);
 
@@ -27,18 +27,22 @@ Route::view('/myadmin', view: 'auth.myadmin');
 Route::post('/myadmin/admin', [SessionController::class, 'loginAdmin']);
 Route::post('/myadmin/profissional', [SessionController::class, 'loginProfissonal']);
 
+
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/login');
+});
+
 //Route::middleware('auth')->group(function () {
-//    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
-//    Route::get('/paciente/dashboard', [PacienteDashboardController::class, 'index']);
-//    Route::get('/profissional/dashboard', [ProfissionalDashboardController::class, 'index']);
+//      Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+//      Route::get('/paciente/dashboard', [PacienteDashboardController::class, 'index']);
+//      Route::get('/profissional/dashboard', [ProfissionalDashboardController::class, 'index']);
 //});
 
 // Dashboards
-Route::view('/dpaciente', view: 'dashboards.home_paciente');
-
-Route::view('/dprofissional', 'dashboards.home_profissional');
-
-Route::view('/dadmin', 'dashboards.home_admin');
+//      Route::view('/dpaciente', view: 'dashboards.home_paciente');
+//      Route::view('/dprofissional', 'dashboards.home_profissional');
+//      Route::view('/dadmin', 'dashboards.home_admin');
 
 // Common
 Route::get('/', function () {
@@ -68,11 +72,12 @@ Route::get('/', function () {
     abort(404);
 });
 
-Route::get('/logout', function(){
-    Auth::logout();
-    return redirect('/login');
-});
 Route::view('/prontuarios', 'prontuarios');
+
+Route::get('/prontuario/{id}', function($id){
+
+    return view('prontuario', ['id' => $id]);
+});
 
 Route::view('/profile', 'dashboards.profile');
 

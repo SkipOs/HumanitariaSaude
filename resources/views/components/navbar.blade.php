@@ -38,7 +38,7 @@
             @endif
 
             @if (Auth::user()->tipo == 'paciente')
-                <x-nav-link href="/prontuarios" :active="request()->is('prontuarios')">Prontuarios<x-slot:icon><svg
+                <x-nav-link href="/prontuario/{{Auth::user()->paciente->prontuarios->idProntuario}}" :active="request()->is('prontuario')">Prontuario<x-slot:icon><svg
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round"

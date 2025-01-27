@@ -4,7 +4,7 @@
             ->join('agendamentos', 'consultas.idAgendamento','agendamentos.idAgendamento')
             ->join('instituicaos', 'consultas.idInstituicao','instituicaos.idInstituicao')
             ->where('cpf', $paciente['cpf'])
-            ->where('data', '>=', now()->format('Y-m-d H:i:s'))
+            ->where('data', '>=', now())
             ->select(['data'])
             ->count();
 
@@ -13,7 +13,7 @@
             ->join('agendamentos', 'exames.idAgendamento','agendamentos.idAgendamento')
             ->join('prontuarios', 'exames.idProntuario','prontuarios.idProntuario')
             ->where('cpf', $paciente['cpf'])
-            ->where('data', '>=', now()->format('Y-m-d H:i:s'))
+            ->where('data', '>=', now())
             ->select(['cpf', 'data', 'exames.idAgendamento'])
             ->count();
 
@@ -22,7 +22,7 @@
             ->join('agendamentos', 'consultas.idAgendamento','agendamentos.idAgendamento')
             ->join('instituicaos', 'consultas.idInstituicao','instituicaos.idInstituicao')
             ->where('cpf', $paciente['cpf'])
-            ->where('data', '<', now()->format('Y-m-d H:i:s'))
+            ->where('data', '<', now())
             ->select(['data'])
             ->count();;
 @endphp
