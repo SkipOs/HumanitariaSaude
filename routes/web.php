@@ -71,7 +71,6 @@ if ($user->tipo == 'profissionalSaude') {
 Route::view('/prontuarios', 'prontuarios');
 
 Route::get('/prontuario/{id}', function($id){
-
     return view('prontuario', ['id' => $id]);
 });
 
