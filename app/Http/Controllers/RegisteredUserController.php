@@ -30,7 +30,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         // Validar os dados recebidos
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'nome' => ['required'],
             'cpf' => ['required'],
             'dataNascimento' => ['required'],
@@ -39,13 +39,22 @@ class RegisteredUserController extends Controller
             'senha' => ['required', Password::min(4), 'confirmed'], // Senha deve ser confirmada
         ]);
 
-        // Criar o usuário
-        $usuario = Usuario::create([
-            'nome' => $validated['nome'],
-            'senha' => Hash::make($validated['senha']),
-        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->with('error', 'Falha no cadastro.')->withInput();
+        }
 
         $cpf = str_replace(['.', '-'], '', $request->input('cpf'));
+
+        // Verificar se o CPF já está cadastrado
+        if (Paciente::where('cpf', $cpf)->exists()) {
+            return redirect()->back()->with('error', 'Este CPF já está cadastrado.')->withInput();
+        }
+
+        // Criar o usuário
+        $usuario = Usuario::create([
+            'nome' => $request->input('nome'),
+            'senha' => Hash::make($request->input('senha')),
+        ]);
 
         // Agora insira o CPF sem a formatação
         Paciente::create([

@@ -37,6 +37,10 @@ class SessionController extends Controller
             'senha' => ['required', Password::min(4)],
         ]);
 
+        $cpf = str_replace(['.', '-'], '', $request->input('cpf'));
+
+        $request['cpf'] = $cpf;
+
         // Verificar se o CPF existe na tabela pacientes
         $usuario = Paciente::where('cpf', $request->cpf)->first();
 
