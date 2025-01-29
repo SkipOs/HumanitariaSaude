@@ -39,7 +39,6 @@
                             <td>
                                 <button type="button" class="btn" data-bs-toggle="modal" color="info"
                                     data-bs-target="#detalhesModal{{ $row->idConsulta }}"> Ver Detalhes</button>
-
                             </td>
                         </tr>
 
