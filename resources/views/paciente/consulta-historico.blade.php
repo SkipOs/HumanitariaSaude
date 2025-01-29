@@ -1,15 +1,17 @@
 @php
-use Carbon\Carbon;
+    use App\Models\Instituicao;
+    use Carbon\Carbon;
     $data = DB::table('consultas')
         ->join('agendamentos', 'consultas.idAgendamento', 'agendamentos.idAgendamento')
         ->join('profissional_saudes as p', 'consultas.crm', 'p.crm')
         ->join('usuarios as u', 'p.idUsuario', 'u.idUsuario')
         ->where('cpf', Auth::user()->paciente->cpf)
         ->where('data', '<', now())
-        ->select(['data', 'nome', 'especialidade'])
+        ->select(['*'])
         ->get();
 
     //dd($data);
+
 @endphp
 
 <x-layout>
@@ -32,12 +34,28 @@ use Carbon\Carbon;
                         <tr>
                             <td>{{ Carbon::parse($row->data)->format('d/m/Y') }}</td>
                             <td>{{ Carbon::parse($row->data)->format('H:i') }}</td>
-                            <td>{{$row->nome}}</td>
-                            <td>{{$row->especialidade}}</td>
+                            <td>{{ $row->nome }}</td>
+                            <td>{{ $row->especialidade }}</td>
                             <td>
-                                <x-action-button href="#" color="info">Ver Detalhes</x-action-button>
+                                <button type="button" class="btn" data-bs-toggle="modal" color="info"
+                                    data-bs-target="#detalhesModal{{ $row->idConsulta }}"> Ver Detalhes</button>
+
                             </td>
                         </tr>
+
+                        <x-modal id="detalhesModal{{ $row->idConsulta }}" title="Escolha uma nova data">
+                            <h3>Consulta realizada em {{ Carbon::parse($row->data)->format('d/m/Y') }}</h3>
+                            <div class="mb-3">
+                                <x-input type="text" class="form-control" value="{{ $row->nome }}"
+                                    readonly>Profissional</x-input>
+                                <x-input type="text" class="form-control" value="{{ $row->motivo }}" readonly>Motivo
+                                    da Consulta</x-input>
+                                <x-input type="text" class="form-control"
+                                    value="{{ Instituicao::find($row->idInstituicao)->nome }}" readonly><label>Local da
+                                        consulta</label></x-input>
+                                <label>{{ Instituicao::find($row->idInstituicao)->endereco }}</label>
+                            </div>
+                        </x-modal>
                     @endforeach
                 </x-slot:rows>
             </x-table>

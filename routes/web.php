@@ -1,19 +1,15 @@
 <?php
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\PacienteController;
-use App\Http\Controllers\AdministradorController;
-use App\Http\Controllers\ProfissionalSaudeController;
+use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
-use App\Models\Administrador;
-use App\Models\Paciente;
-use App\Models\ProfissionalSaude;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ExameController;
 
 // Auth/Logins/Logout
 Route::get('/register', [RegisteredUserController::class, 'create']);
@@ -58,7 +54,7 @@ Route::get('/', function () {
         return view('dashboards.home_paciente', ['paciente' => Auth::user()->paciente]);
     }
 
-    if ($user->tipo == 'profissionalSaude') {
+if ($user->tipo == 'profissionalSaude') {
         // Lógica para profissional
         return view('dashboards.home_profissional', ['profissional' => Auth::user()->administrado]);
     }
@@ -97,16 +93,23 @@ Route::get('/ag/{tabela}', function ($tabela) {
 });
 
 // VIEWS DO PACIENTE
+//// Consultas Próximas
+Route::get('/pca', function () {
+    return view('paciente.consulta-agenda');
+});
+Route::post('/pca/update', [ConsultaController::class, 'update']);
+Route::delete('/pca/cancelar/{id}', [ConsultaController::class, 'cancelar']);
+
+//// Exames
 Route::get('/pep', function () {
     return view('paciente.exame-pendentes');
 });
+Route::post('/pep/update', [ExameController::class, 'update']);
+Route::delete('/pep/cancelar/{id}', [ExameController::class, 'cancelar']);
 
-Route::get('/phc', function () {
+//// Histórico apenas de Consultas
+Route::get('/pch', function () {
     return view('paciente.consulta-historico');
-});
-
-Route::get('/pca', function () {
-    return view('paciente.consulta-agenda');
 });
 
 // VIEWS DE PROFISSIONAIS DE SAUDE

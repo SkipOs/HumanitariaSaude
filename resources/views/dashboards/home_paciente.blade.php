@@ -71,7 +71,7 @@
                     <x-card>
                         <span class="text-secondary">{{ $pe }}</span>
                         <x-slot:title>Exames Pendentes</x-slot:title>
-                        <x-slot:subtitle>Realize exames agendados</x-slot:subtitle>
+                        <x-slot:subtitle>Confira exames agendados</x-slot:subtitle>
                         <x-slot:bgColor>bg-red</x-slot:bgColor>
                         <x-slot:icon>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -89,7 +89,7 @@
 
             <!-- Histórico de Consultas -->
             <div class="col-md-4">
-                <a href="/phc">
+                <a href="/pch">
                     <x-card>
                         <span class="text-secondary">{{ $hc }}</span>
                         <x-slot:title>Histórico de Consultas</x-slot:title>

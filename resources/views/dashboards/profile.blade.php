@@ -1,4 +1,5 @@
 @php
+    use Carbon\Carbon;
     // Obtém o usuário autenticado
     $user = Auth::user();
 @endphp
@@ -38,7 +39,7 @@
                             </div>
                             <div class="col-md-4">
                                 <x-input type="date" class="form-control"
-                                    value="{{ \Carbon\Carbon::parse($user->paciente->dataNascimento)->format('Y-m-d') }}"
+                                    value="{{ Carbon::parse($user->paciente->dataNascimento)->format('Y-m-d') }}"
                                     readonly>Data de Nascimento</x-input>
                             </div>
                         </div>

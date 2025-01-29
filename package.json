@@ -29,6 +29,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^1.7.9",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "maska": "^3.0.4"
   }
 }

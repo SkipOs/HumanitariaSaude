@@ -6,7 +6,7 @@ use Carbon\Carbon;
         ->join('usuarios as u', 'p.idUsuario', 'u.idUsuario')
         ->where('cpf', Auth::user()->paciente->cpf)
         ->where('data', '>=', now())
-        ->select(['data', 'nome', 'especialidade'])
+        ->select(['data', 'nome', 'especialidade', 'consultas.idAgendamento as idAgendamento'])
         ->get();
 
     //dd($data);
@@ -17,7 +17,18 @@ use Carbon\Carbon;
         Próximas Consultas
     </x-slot:heading>
 
-    <div class="container">
+    <div class="container mt-4">
+               <!-- Exibindo mensagens de sucesso ou erro -->
+               @if (session('success'))
+               <div class="alert alert-success">
+                   {{ session('success') }}
+               </div>
+           @elseif(session('error'))
+               <div class="alert alert-danger">
+                   {{ session('error') }}
+               </div>
+           @endif
+
         <div class="card">
             <x-table>
                 <x-slot:headers>
@@ -35,13 +46,37 @@ use Carbon\Carbon;
                             <td>{{$row->nome}}</td>
                             <td>{{$row->especialidade}}</td>
                             <td>
-                                <x-action-button href="#" color="info">Trocar Data</x-action-button>
-                                <form action="#" method="POST" class="d-inline">
+                                <!-- Botão para abrir o modal -->
+                                <button class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target="#changeDataModal{{ $row->idAgendamento }}"
+                                    onclick="setAgendamentoId({{ $row->idAgendamento }})">
+                                    Trocar Data
+                                </button>
+                                <form action="/pep/cancelar/{{ $row->idAgendamento }}" method="POST" class="d-inline">
                                     @csrf
+                                    @method('DELETE')
                                     <button class="btn btn-danger">Cancelar</button>
                                 </form>
                             </td>
                         </tr>
+
+                        <x-modal id="changeDataModal{{ $row->idAgendamento }}" title="Escolha uma nova data">
+                            <form method="POST" action="/pep/update">
+                                @csrf
+                                <input type="hidden" name="idAgendamento" id="idAgendamento"
+                                    value="{{ $row->idAgendamento }}">
+                                <div class="mb-3">
+                                    <label for="newDate" class="form-label">Nova Data</label>
+                                    <input type="datetime-local" id="newDate" name="newDate"
+                                        class="form-control timedate" value="{{ $row->data }}" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Fechar</button>
+                                </div>
+                            </form>
+                        </x-modal>
                     @endforeach
                 </x-slot:rows>
             </x-table>
