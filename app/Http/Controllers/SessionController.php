@@ -64,9 +64,14 @@ class SessionController extends Controller
             'senha' => ['required', Password::min(4)],
         ]);
 
+        $telefone = str_replace(['/', '-', ' ', '(', ')'], '', $request->input('telefone'));
+
+        $request['telefone'] = $telefone;
+
+      //  dd($request->telefone   );
         // Verificar se o Telefone existe na tabela pacientes
         $usuario = Administrador::where('telefone', $request->telefone)->first();
-        //dd($usuario->usuario);
+
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
             // Login bem-sucedido

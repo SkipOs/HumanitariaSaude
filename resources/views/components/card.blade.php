@@ -1,4 +1,4 @@
-<div class="card card-sm">
+<div class="card card-sm" style="box-shadow: 3px 3px 3px #0000008b">
     <div class="card-body">
         <div class="row align-items-center">
             <div class="col-auto">

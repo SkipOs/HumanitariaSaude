@@ -5,6 +5,8 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 
+use App\Models\Paciente;
+use App\Models\Prontuario;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Models\Usuario;
@@ -18,10 +20,11 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'login']);
 
-
 Route::view('/myadmin', view: 'auth.myadmin');
 Route::post('/myadmin/admin', [SessionController::class, 'loginAdmin']);
-Route::post('/myadmin/profissional', [SessionController::class, 'loginProfissonal']);
+
+Route::view('/psaude', view: 'auth.psaude');
+Route::post('/psaude/profissional', [SessionController::class, 'loginProfissonal']);
 
 
 Route::get('/logout', function(){
@@ -66,12 +69,6 @@ if ($user->tipo == 'profissionalSaude') {
 
     // Caso nenhum dos tipos acima seja válido
     abort(404);
-});
-
-Route::view('/prontuarios', 'prontuarios');
-
-Route::get('/prontuario/{id}', function($id){
-    return view('prontuario', ['id' => $id]);
 });
 
 Route::view('/profile', 'dashboards.profile');
@@ -131,4 +128,18 @@ Route::get('/user/{id}', function ($id) {
     $user = Usuario::find($id);
 
     return view('user', ['user' => $user]);
+});
+
+// Observar Prontuarios
+
+Route::get('/prontuario/{id}', function($id){
+    return view('prontuario', ['id' => $id]);
+});
+
+Route::get('/prontuarios', function () {
+    $data = Prontuario::with('paciente')->latest()->simplePaginate(9);
+
+    return view('prontuarios', [
+        'data' => $data,
+    ]);
 });

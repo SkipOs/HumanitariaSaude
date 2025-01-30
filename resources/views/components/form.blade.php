@@ -1,4 +1,4 @@
-<form {{$attributes}}>
+<form {{$attributes}} style="box-shadow: 3px 3px 3px #0000008b">
     @csrf
 
     <div class="card-header">

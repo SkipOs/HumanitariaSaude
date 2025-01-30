@@ -3,6 +3,13 @@
     use App\Models\Consulta;
     use App\Models\Exame;
     use Illuminate\Support\Facades\DB;
+    use App\Models\Prontuario;
+
+    if (Auth::user()->tipo == 'paciente'){
+        $cpf = Auth::user()->cpf;
+    } else {
+        $cpf = Prontuario::find($id)->cpf;
+    }
 
     // Consulta de exames
     $exames = Exame::where('idProntuario', $id)->select([
@@ -12,7 +19,7 @@
     ]);
 
     // Consulta de consultas com CPF do paciente autenticado
-    $consultas = Consulta::where('cpf', Auth::user()->paciente->cpf)->select(
+    $consultas = Consulta::where('cpf', $cpf)->select(
         DB::raw("'Consulta' as descricao"),
         'idAgendamento as key',
         'motivo as info',
