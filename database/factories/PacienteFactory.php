@@ -13,10 +13,10 @@ class PacienteFactory extends Factory
     {
         return [
             'cpf' => $this->faker->unique()->numberBetween(10000000000, 99999999999),
-            'idUsuario' => \App\Models\Usuario::factory(),
+            'idUsuario' => \App\Models\Usuario::factory()->create(['tipo'=>'paciente']),
             'dataNascimento' => $this->faker->date('Y-m-d', '2005-12-31'),
             'endereco' => $this->faker->address,
-            'telefone' => $this->faker->phoneNumber,
+            'telefone' => $this->faker->numerify('###########'),
         ];
     }
 }

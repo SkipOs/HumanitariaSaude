@@ -12,8 +12,8 @@ class AdministradorFactory extends Factory
     public function definition()
     {
         return [
-            'idUsuario' => \App\Models\Usuario::factory(),
-            'telefone' => $this->faker->phoneNumber,
+            'idUsuario' => \App\Models\Usuario::factory()->create(['tipo'=>'administrador']),
+            'telefone' => $this->faker->numerify('###########'),
         ];
     }
 }

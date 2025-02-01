@@ -16,7 +16,7 @@
 
 <x-layout>
     <x-slot:heading>
-        Próximas Consultas
+        Histórico de Consultas
     </x-slot:heading>
 
     <div class="container">

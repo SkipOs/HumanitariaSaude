@@ -5,7 +5,9 @@
 
     <div class="row justify-content-center align-items-center">
         <div class="col-md-6">
-            <input type="text" id="search" name="search" class="form-control form-control-rounded" placeholder="Buscar..."/>
+            <form action="/search-users" method="GET">
+                <input type="text" id="search" name="search" class="form-control form-control-rounded" placeholder="Buscar..."/>
+            </form>
         </div>
     </div>
 

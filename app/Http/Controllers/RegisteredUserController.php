@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use App\Models\Prontuario;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Validator;
@@ -63,6 +64,10 @@ class RegisteredUserController extends Controller
             'dataNascimento' => $request->input('dataNascimento'),
             'endereco' => $request->input('endereco'),
             'telefone' => $request->input('telefone'),
+        ]);
+
+        Prontuario::factory()->create([
+            'cpf'=> $cpf,
         ]);
 
         // Redirecionar para a página de login

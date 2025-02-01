@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\ProntuarioController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserController;
 
 use App\Models\Paciente;
@@ -25,7 +27,6 @@ Route::post('/myadmin/admin', [SessionController::class, 'loginAdmin']);
 
 Route::view('/psaude', view: 'auth.psaude');
 Route::post('/psaude/profissional', [SessionController::class, 'loginProfissonal']);
-
 
 Route::get('/logout', function(){
     Auth::logout();
@@ -57,14 +58,14 @@ Route::get('/', function () {
         return view('dashboards.home_paciente', ['paciente' => Auth::user()->paciente]);
     }
 
-if ($user->tipo == 'profissionalSaude') {
+    if ($user->tipo == 'profissionalSaude') {
         // Lógica para profissional
         return view('dashboards.home_profissional', ['profissional' => Auth::user()->administrado]);
     }
 
     if ($user->tipo == 'administrador') {
         // Lógica para administrador
-        return view('dashboards.home_profissional', ['profissional' => Auth::user()->profissionalSaude]);
+        return view('dashboards.home_admin', ['profissional' => Auth::user()->profissionalSaude]);
     }
 
     // Caso nenhum dos tipos acima seja válido
@@ -81,12 +82,29 @@ Route::get('/pacientes', function () {
     return view('admin.pacientes', ['users' => $users]);
 });
 
+//// Gerenciamento
 Route::get('/ag/{tabela}', function ($tabela) {
-    //$tabela = 'usuarios';
-    $data = DB::table($tabela)->get();
-    // dd($data);
-    return view('admin.gerenciar', ['tableName' => $tabela, 'data' => $data]);
+    // Pega os dados da tabela
+    //    $data = DB::table($tabela)->get();
+
+    // Obtém a chave primária da tabela dinamicamente
+    $schema = DB::getSchemaBuilder()->getColumnListing($tabela);
+
+    // Aqui estamos assumindo que a chave primária é 'id', mas você pode adaptar isso se precisar
+    // Se a tabela não tiver 'id', você pode usar uma lógica mais complexa.
+    //    $primaryKey = in_array('id', $primaryKey) ? 'id' : $primaryKey[0];
+
+    return view('admin.gerenciar', [
+        'tableName' => $tabela,
+        'data' => DB::table($tabela)->get(),
+        'primaryKey' => in_array('id', $schema) ? 'id' : $schema[0],
+        'schema' => $schema,
+    ]);
 });
+
+Route::post('/ag/{tabela}/new', [TableController::class, 'new']);
+Route::post('/ag/{tabela}/update/{id}', [TableController::class, 'update']);
+Route::delete('/ag/{tabela}/delete/{id}', [TableController::class, 'delete']);
 
 // VIEWS DO PACIENTE
 //// Consultas Próximas
@@ -123,7 +141,6 @@ Route::get('/users', function () {
 });
 
 Route::get('/search-users', [UserController::class, 'search']);
-
 Route::get('/user/{id}', function ($id) {
     $user = Usuario::find($id);
 
@@ -131,7 +148,7 @@ Route::get('/user/{id}', function ($id) {
 });
 
 // Observar Prontuarios
-
+Route::get('/search-prontuarios', [ProntuarioController::class, 'search']);
 Route::get('/prontuario/{id}', function($id){
     return view('prontuario', ['id' => $id]);
 });

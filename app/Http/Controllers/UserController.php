@@ -13,24 +13,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
+
     public function search(Request $request)
     {
-        $query = $request->get('query', '');
+        $search = $request->input('search');
+        $results = Usuario::where('nome', 'LIKE', "%$search%")->paginate(9);
 
-        // Busca os usuários com base na consulta, com paginação
-        $users = Usuario::where('nome', 'like', '%' . $query . '%')
-                        ->orWhere('tipo', 'like', '%' . $query . '%')
-                        ->latest()
-                        ->paginate(9);
-
-        // Retorna os resultados como JSON
-        return response()->json([
-            'users' => $users->items(), // Retorna os itens da página
-            'pagination' => [
-                'total' => $users->total(),
-                'current_page' => $users->currentPage(),
-                'last_page' => $users->lastPage(),
-            ]
-        ]);
+        return view('users', ['users' => $results]);
     }
 }

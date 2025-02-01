@@ -13,7 +13,7 @@ class ProfissionalSaudeFactory extends Factory
     {
         return [
             'crm' => $this->faker->unique()->numerify('########'),
-            'idUsuario' => \App\Models\Usuario::factory(),
+            'idUsuario' => \App\Models\Usuario::factory()->create(['tipo'=>'profissionalSaude']),
             'especialidade' => $this->faker->jobTitle,
         ];
     }

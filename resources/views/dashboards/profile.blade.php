@@ -88,7 +88,7 @@
                 <div class="col-12 d-flex flex-column">
                     <div class="card-body">
                         <!-- Cabeçalho do Perfil -->
-                        <div class="row align-items-center mb-4">3
+                        <div class="row align-items-center mb-4">
                             <div class="col-auto">
                                 <span class="avatar avatar-xl"
                                     style="background-image: url(./static/avatars/000m.jpg)">M</span>

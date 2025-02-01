@@ -1,7 +1,6 @@
 @php
     use Carbon\Carbon;
     use App\Models\Prontuario;
-
     //dd($paginate);
 
 @endphp
@@ -11,6 +10,13 @@
         Prontuários
     </x-slot:heading>
 
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <form action="/search-prontuarios" method="GET">
+                <input type="text" id="search" name="search" class="form-control form-control-rounded" placeholder="Buscar..."/>
+            </form>
+        </div>
+    </div>
     <!-- Lista de Usuários -->
     <div id="users-list" class="row mt-4">
         @foreach ($data as $prontuario)

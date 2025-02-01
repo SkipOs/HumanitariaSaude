@@ -48,8 +48,7 @@ use Carbon\Carbon;
                             <td>
                                 <!-- Botão para abrir o modal -->
                                 <button class="btn btn-info" data-bs-toggle="modal"
-                                    data-bs-target="#changeDataModal{{ $row->idAgendamento }}"
-                                    onclick="setAgendamentoId({{ $row->idAgendamento }})">
+                                    data-bs-target="#changeDataModal{{ $row->idAgendamento }}">
                                     Trocar Data
                                 </button>
                                 <form action="/pep/cancelar/{{ $row->idAgendamento }}" method="POST" class="d-inline">
