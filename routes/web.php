@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendamentoController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ProntuarioController;
 use App\Http\Controllers\RegisteredUserController;
@@ -125,6 +126,22 @@ Route::delete('/pep/cancelar/{id}', [ExameController::class, 'cancelar']);
 Route::get('/pch', function () {
     return view('paciente.consulta-historico');
 });
+
+//// Agendar
+Route::get('/pa', function () {
+    return view('paciente.agendamento');
+});
+
+//// Agendar Exame
+Route::post('/exame/new', [
+    AgendamentoController::class, 'exame'
+]);
+
+//// Agendar Consulta
+Route::post('/consulta/new',[
+    AgendamentoController::class, 'consulta'
+]);
+
 
 // VIEWS DE PROFISSIONAIS DE SAUDE
 Route::get('/psa', function () {

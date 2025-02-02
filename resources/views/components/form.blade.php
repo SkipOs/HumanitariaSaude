@@ -1,7 +1,7 @@
-<form {{$attributes}} style="box-shadow: 3px 3px 3px #0000008b">
+<form {{$attributes}}>
     @csrf
 
-    <div class="card-header">
+    <div class="card-header justify-content-center">
         <h3 class="card-title">{{$title}}</h3>
     </div>
 

@@ -99,27 +99,27 @@
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round"
-                                class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-time">
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-check">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-                                <path d="M18 18m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                                <path d="M15 3v4" />
-                                <path d="M7 3v4" />
-                                <path d="M3 11h16" />
-                                <path d="M18 16.496v1.504l1 1" />
-                            </svg> </x-slot:icon>
+                                <path d="M11.5 21h-5.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6" />
+                                <path d="M16 3v4" />
+                                <path d="M8 3v4" />
+                                <path d="M4 11h16" />
+                                <path d="M15 19l2 2l4 -4" />
+                            </svg>
+                        </x-slot:icon>
                     </x-card>
                 </a>
             </div>
 
             <!-- Solicitar Agendamento -->
             <div class="col-md-4">
-                <a href="/pch">
-                    <x-card>
-                        <span class="text-secondary">{{ $hc }}</span>
-                        <x-slot:title>Histórico de Consultas</x-slot:title>
-                        <x-slot:subtitle>Veja suas consultas realizadas</x-slot:subtitle>
-                        <x-slot:bgColor>bg-green</x-slot:bgColor>
+                <a href="/pa">
+                    <x-card :counter="false">
+                        <span class="text-secondary"></span>
+                        <x-slot:title>Solicitar Agendamento</x-slot:title>
+                        <x-slot:subtitle>Solicite o agendamento de <br>consultas e Exames</x-slot:subtitle>
+                        <x-slot:bgColor>bg-purple</x-slot:bgColor>
                         <x-slot:icon>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
