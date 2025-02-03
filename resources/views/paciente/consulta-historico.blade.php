@@ -1,4 +1,5 @@
 @php
+    use App\Models\Prescricao;
     use App\Models\Instituicao;
     use Carbon\Carbon;
     $data = DB::table('consultas')
@@ -45,7 +46,7 @@
 
                         <x-modal id="detalhesModal{{ $row->idConsulta }}" title="Escolha uma nova data">
                             <h3>Consulta realizada em {{ Carbon::parse($row->data)->format('d/m/Y') }}</h3>
-                            <div class="mb-3">
+                            <div class="mt-3">
                                 <x-input type="text" class="form-control" value="{{ $row->nome }}"
                                     readonly>Profissional</x-input>
                                 <x-input type="text" class="form-control" value="{{ $row->motivo }}" readonly>Motivo
@@ -54,6 +55,14 @@
                                     value="{{ Instituicao::find($row->idInstituicao)->nome }}" readonly><label>Local da
                                         consulta</label></x-input>
                                 <label>{{ Instituicao::find($row->idInstituicao)->endereco }}</label>
+                                <div class="mt-3">
+                                    <h2>Prescrições da consulta</h2>
+                                    <ul>
+                                    @foreach (Prescricao::where('idConsulta', $row->idConsulta)->get() as $item)
+                                        <li>{{$item->nomeMedicamento}}, {{$item->dosagem}} até {{$item->data}}</li>
+                                    @endforeach
+                                </ul>
+                                </div>
                             </div>
                         </x-modal>
                     @endforeach

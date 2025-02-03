@@ -42,7 +42,7 @@
                     <div class="mb-3">
                         <label class="form-label">Motivo Consulta</label>
                         <input type="text" class="form-control" name="motivo" id="motivo"
-                            placeholder="Motivo da consulta" value="{{$consulta->motivo}}">
+                            placeholder="Motivo da consulta" value="{{ $consulta->motivo }}">
                     </div>
 
                     <div class="mb-3">
@@ -88,10 +88,10 @@
                                     <h2>Resultado do exame: Pronto</h2>
                                     <label class="mb-2">{{ $exame->resultado }}</label>
                                     @if (Diagnostico::where('idExame', $exame->idExame)->first() == null)
-                                        <a href="#" class="btn btn-2" data-bs-toggle="modal"
-                                            data-bs-target="#modal-diagnóstico-{{ $exame->idExame }}">
-                                            Diagnosticar
-                                        </a>
+                                        <div class="mt-3"> <a href="#" class="btn btn-2" data-bs-toggle="modal"
+                                                data-bs-target="#modal-diagnóstico-{{ $exame->idExame }}">
+                                                Diagnosticar
+                                            </a></div>
                                     @elseif (Diagnostico::where('idExame', $exame->idExame)->first() != null)
                                         <h2>Diagnóstico:</h2>
                                         <label>{{ Diagnostico::where('idExame', $exame->idExame)->first()->descricao }}</label>
@@ -158,8 +158,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Nome do medicamento</label>
-                        <input type="text" class="form-control" name="nomeMedicamento"
-                            id="nomeMedicamento">
+                        <input type="text" class="form-control" name="nomeMedicamento" id="nomeMedicamento">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Dosagem</label>
@@ -167,8 +166,8 @@
                     </div>
 
                     <x-input tabler="mb-3" name="vencimento" type="date" class="form-control datetime"
-                    placeholder="__ /__ /____" min="{{ Carbon::now()->format('Y-m-d') }}"
-                    required>Vencimento</x-input>
+                        placeholder="__ /__ /____" min="{{ Carbon::now()->format('Y-m-d') }}"
+                        required>Vencimento</x-input>
                 </div>
                 <div class="modal-footer">
                     <a href="#" class="btn btn-link link-secondary btn-3" data-bs-dismiss="modal">

@@ -77,7 +77,7 @@ class ExameController extends Controller
         Prescricao::create([
             'idConsulta' => $id,
             'nomeMedicamento' => $request->input('nomeMedicamento'),
-            'dosagem' => $request->input('nomeMedicamento'),
+            'dosagem' => $request->input('dosagem'),
             'data' => $request->input('vencimento'),
         ]);
 
