@@ -38,6 +38,8 @@
                             <td>{{ $row->nome }}</td>
                             <td>
                                 <form action="/consulta/{{ $row->idConsulta }}" method="GET" class="d-inline">
+                                    @csrf
+                                    @method('GET')
                                     <button class="btn btn-success">Iniciar Consulta</button>
                                 </form>
 

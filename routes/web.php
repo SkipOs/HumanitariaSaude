@@ -160,9 +160,20 @@ Route::get('/consulta/{id}', function ($id) {
 });
 
 //// Diagnosticar
-Route::post('/consulta/new',[
+Route::post('/diagnosticar/{id}',[
     ExameController::class, 'diagnosticar'
 ]);
+
+//// Prescindir Medicamentos
+Route::post('/prescricao/{id}',[
+    ExameController::class, 'prescricao'
+]);
+
+//// Encerrar consulta
+Route::post('/encerrar/{id}',[
+    ExameController::class, 'updateConsulta'
+]);
+
 
 // Observar usuários
 Route::get('/users', function () {

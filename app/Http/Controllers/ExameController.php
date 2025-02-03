@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diagnostico;
+use App\Models\Prescricao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -44,6 +46,59 @@ class ExameController extends Controller
         // Redireciona de volta com a mensagem de sucesso
         return redirect()->back()->with('success', 'Data alterada com sucesso!');
     }
+
+    public function diagnosticar(Request $request, $id)
+    {
+        // Validação dos dados do formulário
+        $request->validate([
+            'descricao' => 'required',
+        ]);
+
+        Diagnostico::create([
+            'idExame' => $id,
+            'data' => now(),
+            'descricao' => $request->input('descricao'),
+        ]);
+
+        //dd($id);
+
+        // Redireciona de volta com a mensagem de sucesso
+        return redirect()->back()->with('success', 'Diagnóstico adicionado com sucesso!');
+    }
+
+    public function prescricao(Request $request, $id)
+    {
+        // Validação dos dados do formulário
+        $request->validate([
+            'nomeMedicamento' => 'required',
+            'dosagem' => 'required',
+        ]);
+
+        Prescricao::create([
+            'idConsulta' => $id,
+            'nomeMedicamento' => $request->input('nomeMedicamento'),
+            'dosagem' => $request->input('nomeMedicamento'),
+            'data' => $request->input('vencimento'),
+        ]);
+
+        // Redireciona de volta com a mensagem de sucesso
+        return redirect()->back()->with('success', 'Medicamento adicionado com sucesso!');
+    }
+
+    public function updateConsulta(Request $request, $id)
+    {
+        // Validação dos dados do formulário
+        $request->validate([
+            'motivo' => 'required',
+        ]);
+
+        // Atualiza a consulta
+       DB::table(table: 'consultas')->where('idConsulta', $id)->update(['motivo'=>$request->input('motivo')]);
+
+        // Redireciona de volta com a mensagem de sucesso
+        return redirect('/psca')->with('success', 'Exame encerrado com sucesso!');
+    }
+
 
     public function cancelar($id)
     {

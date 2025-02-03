@@ -30,26 +30,39 @@
 @endphp
 
 <x-clear-page>
+    <x-alert-message></x-alert-message>
     <div class="container mt-4">
         <div class="card">
-            <h1>Consulta com {{ $consulta->paciente->usuario->nome }}</h1>
+            <div class="card-body">
+                <form action="/encerrar/{{ $id }}" method="post">
+                    @csrf
+                    @method('POST')
+                    <h1>Consulta com {{ $consulta->paciente->usuario->nome }}</h1>
 
-            <div class="mb-3">
-                <label class="form-label">Motivo Consulta</label>
-                <input type="text" class="form-control" name="example-text-input" placeholder="Your report name">
+                    <div class="mb-3">
+                        <label class="form-label">Motivo Consulta</label>
+                        <input type="text" class="form-control" name="motivo" id="motivo"
+                            placeholder="Motivo da consulta" value="{{$consulta->motivo}}">
+                    </div>
+
+                    <div class="mb-3">
+                        <a class="btn" data-bs-toggle="offcanvas" href="#offcanvasEnd" role="button"
+                            aria-controls="offcanvasEnd">
+                            Visualizar Exames
+                        </a>
+                    </div>
+
+                    <div class="mb-3">
+                        <a href="#" class="btn btn-2" data-bs-toggle="modal" data-bs-target="#modal-report">
+                            Adicionar medicamento
+                        </a>
+                    </div>
+
+                    <div class="mb-3">
+                        <x-button type="submit" class="btn btn-primary">Encerrar Consulta</x-button>
+                    </div>
+                </form>
             </div>
-
-            <a class="btn" data-bs-toggle="offcanvas" href="#offcanvasEnd" role="button" aria-controls="offcanvasEnd">
-                Visualizar Exames
-            </a>
-
-            <a class="btn" data-bs-toggle="modal" href="#" role="button" aria-controls="">
-                Nova Prescrição
-            </a>
-
-            <a class="btn" data-bs-toggle="modal" href="#" role="button" aria-controls="">
-                Renovar Prescrição
-            </a>
         </div>
 
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel"
@@ -80,7 +93,8 @@
                                             Diagnosticar
                                         </a>
                                     @elseif (Diagnostico::where('idExame', $exame->idExame)->first() != null)
-                                        <label>{{ Diagnostico::where('idExame', $exame->idExame)->descricao }}</label>
+                                        <h2>Diagnóstico:</h2>
+                                        <label>{{ Diagnostico::where('idExame', $exame->idExame)->first()->descricao }}</label>
                                     @endif
                                 @elseif ($exame->updated_at == $exame->created_at)
                                     <h2>Resultado do exame: Indisponível</h2>
@@ -99,34 +113,70 @@
             style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
-                    <form  action="/diagnosticar" method="post">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            <Header>Exame - {{ $exame->tipo }}</Header>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Resultado Exame</label>
-                            <span>{{ $exame->resultado }}</span>
+                    <form action="/diagnosticar/{{ $exame->idExame }}" method="post">
+                        @csrf
+                        @method('POST')
+                        <div class="modal-header">
+                            <h5 class="modal-title">
+                                <Header>Exame - {{ $exame->tipo }}</Header>
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
-                        <div class="col-lg-12">
-                            <div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="form-label">Resultado Exame</label>
+                                <span>{{ $exame->resultado }}</span>
+                            </div>
+                            <div class="col-lg-12">
                                 <label class="form-label">Diagnóstico</label>
-                                <textarea class="form-control" rows="3" id="descricao"></textarea>
+                                <textarea class="form-control" rows="3" id="descricao" name="descricao" required></textarea>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="btn btn-link link-secondary btn-3" data-bs-dismiss="modal">
-                            Cancel
-                        </a>
-                        <x-button type="submit" class="btn btn-primary">Adicionar Diagnostico</x-button>
-                    </div>
-                </form>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-link link-secondary btn-3" data-bs-dismiss="modal">
+                                Cancel
+                            </a>
+                            <x-button type="submit" class="btn btn-primary">Adicionar Diagnostico</x-button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     @endif
 @endforeach
+
+<div class="modal modal-blur fade" id="modal-report" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nova prescricao</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/prescricao/{{ $id }}" method="post">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Nome do medicamento</label>
+                        <input type="text" class="form-control" name="nomeMedicamento"
+                            id="nomeMedicamento">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Dosagem</label>
+                        <textarea class="form-control" rows="3" id="dosagem" name="dosagem" required></textarea>
+                    </div>
+
+                    <x-input tabler="mb-3" name="vencimento" type="date" class="form-control datetime"
+                    placeholder="__ /__ /____" min="{{ Carbon::now()->format('Y-m-d') }}"
+                    required>Vencimento</x-input>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-link link-secondary btn-3" data-bs-dismiss="modal">
+                        Cancel
+                    </a>
+                    <x-button type="submit" class="btn btn-primary">Adicionar Remédio</x-button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
