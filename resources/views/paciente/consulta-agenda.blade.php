@@ -7,6 +7,7 @@ use Carbon\Carbon;
         ->where('cpf', Auth::user()->paciente->cpf)
         ->where('data', '>=', now())
         ->select(['data', 'nome', 'especialidade', 'consultas.idAgendamento as idAgendamento'])
+        ->orderBy('data', 'ASC')
         ->get();
 
     //dd($data);
@@ -18,7 +19,6 @@ use Carbon\Carbon;
     </x-slot:heading>
 
     <div class="container mt-4">
-               <!-- Exibindo mensagens de sucesso ou erro -->
 <x-alert-message></x-alert-message>
 
         <div class="card">

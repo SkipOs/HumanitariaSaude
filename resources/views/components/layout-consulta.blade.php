@@ -51,11 +51,8 @@
 
 <body class="flex-column">
     <div class="page page-center" style="padding-top: 10px;">
-        <div class="container container-tight py-4">
-            <div class="text-center mb-4">
-                <img src="https://skip0s.neocities.org/img/hs_title.png" height="36" alt="HSaúde" class="">
-            </div>
-            {{ $slot }}
+        <div class="container py-4">
+
         </div>
     </div>
 </body>

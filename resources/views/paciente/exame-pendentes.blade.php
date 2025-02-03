@@ -7,6 +7,7 @@
         ->where('cpf', Auth::user()->paciente->cpf)
         ->where('data', '>=', now())
         ->select(['tipo', 'data', 'exames.idAgendamento as idAgendamento'])
+        ->orderBy('data', 'ASC')
         ->get();
 @endphp
 

@@ -144,9 +144,25 @@ Route::post('/consulta/new',[
 
 
 // VIEWS DE PROFISSIONAIS DE SAUDE
-Route::get('/psa', function () {
+//// Consultas
+Route::get('/psca', function () {
     return view('profissional.agenda');
 });
+
+//// Histórico atendimentos
+Route::get('/pspa', function () {
+    return view('profissional.atendidos');
+});
+
+//// Consulta
+Route::get('/consulta/{id}', function ($id) {
+    return view('profissional.consulta', ['id' => $id]);
+});
+
+//// Diagnosticar
+Route::post('/consulta/new',[
+    ExameController::class, 'diagnosticar'
+]);
 
 // Observar usuários
 Route::get('/users', function () {

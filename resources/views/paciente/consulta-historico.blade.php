@@ -7,6 +7,7 @@
         ->join('usuarios as u', 'p.idUsuario', 'u.idUsuario')
         ->where('cpf', Auth::user()->paciente->cpf)
         ->where('data', '<', now())
+        ->orderBy('data', 'ASC')
         ->select(['*'])
         ->get();
 
