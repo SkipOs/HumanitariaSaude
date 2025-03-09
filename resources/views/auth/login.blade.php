@@ -14,7 +14,7 @@
 
         <script src="https://unpkg.com/imask"></script>
 
-        <x-input type="text" name='cpf' id='cpf' class="form-control maska" data-maska="###.###.###-##" data-mask-visible="true" placeholder="000.000.000-00" autocomplete="off" required>CPF</x-input>
+        <x-input type="text" name='email' id='email' class="form-control"  placeholder="Insira seu email" autocomplete="off" required>Email</x-input>
 
         <x-input type="password" name='senha' id='senha' class="form-control" placeholder="••••••••" required>Senha</x-input>
 

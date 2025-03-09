@@ -12,6 +12,7 @@ class AdministradorFactory extends Factory
     public function definition()
     {
         return [
+            'email' => fake()->unique()->safeEmail(),
             'idUsuario' => \App\Models\Usuario::factory()->create(['tipo'=>'administrador']),
             'telefone' => $this->faker->numerify('###########'),
         ];

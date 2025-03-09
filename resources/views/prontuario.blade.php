@@ -4,7 +4,8 @@
     use App\Models\Exame;
     use Illuminate\Support\Facades\DB;
     use App\Models\Prontuario;
-use App\Models\Prescricao;
+    use App\Models\Prescricao;
+
 
     if (Auth::user()->tipo == 'paciente') {
         $cpf = Auth::user()->cpf;
@@ -17,8 +18,9 @@ use App\Models\Prescricao;
         'tipo as descricao',
         'idAgendamento as key',
         'resultado as info',
-        'idExame as idUnico'
-
+        'idExame as idUnico',
+        'created_at',
+        'updated_at',
     ]);
 
     // Consulta de consultas com CPF do paciente autenticado
@@ -27,6 +29,8 @@ use App\Models\Prescricao;
         'idAgendamento as key',
         'motivo as info',
         'idConsulta as idUnico',
+        'created_at',
+        'updated_at',
     );
 
     // União das duas consultas
@@ -39,7 +43,7 @@ use App\Models\Prescricao;
         ->orderByDesc('data') //    ->where('data', '<', now())
         ->get();
 
-//    dd($data);
+    //    dd($data);
 
 @endphp
 
@@ -69,31 +73,48 @@ use App\Models\Prescricao;
                             </td>
                         </tr>
 
-                        <x-modal id="detalhesModal{{ $row->key }}" title="Escolha uma nova data">
+                        <x-modal id="detalhesModal{{ $row->key }}" title="Detalhes">
                             <h3>{{ $row->descricao }} - {{ Carbon::parse($row->data)->format('d/m/Y') }}</h3>
                             <div class="mb-3">
-                                <label class="mb-2">{{ $row->info }}</label>
-                                <?php if ($row->descricao != 'Consulta') {
-                                    echo '<h2>Resultado do exame: ';
 
-                                    if ($row->info != null) {
-                                        echo 'Pronto';
-                                    } else {
-                                        echo 'Indisponível';
-                                    }
-                                    echo '</h2>';
-                                }
-                                ?>
+                                @if ($row->descricao != 'Consulta')
+                                   <h2>Resultado do exame:
+                                    @if ($row->info != null)
+                                        Pronto</h2>
+                                        {{
+                                            Storage::url(
+                                                DB::table('files')
+                                                ->where('idArquivo', $row->info)
+                                                ->get('path')->first()->path
+                                            )
+                                            }}
+                                        <a href="{{
+                                        Storage::url(
+                                            DB::table('files')
+                                            ->where('idArquivo', $row->info)
+                                            ->get('path')->first()->path
+                                        )
+                                        }}" target="_blank">
+                                            <button class="btn"><i class="fa fa-download"></i> Baixar Resultado</button>
+                                        </a>
+                                    @else
+                                        Indisponível</h2>
+                                    @endif
+
+                                @endif
+
                                 @if ($row->descricao == 'Consulta')
-                                <div class="mt-3">
-                                    <h2>Prescrições da consulta</h2>
-                                    <ul>
-                                    @foreach (Prescricao::where('idConsulta', $row->idUnico)->get() as $item)
-                                       <li> {{ $item->nomeMedicamento }}, {{ $item->dosagem }} até {{ $item->data }}
-                                    </li>
-                                    @endforeach
-                                </ul>
-                                </div>
+                                    <label class="mb-2">{{ $row->info }}</label>
+                                    <div class="mt-3">
+                                        <h2>Prescrições da consulta</h2>
+                                        <ul>
+                                            @foreach (Prescricao::where('idConsulta', $row->idUnico)->get() as $item)
+                                                <li> {{ $item->nomeMedicamento }}, {{ $item->dosagem }} até
+                                                    {{ $item->data }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 @endif
                             </div>
                         </x-modal>

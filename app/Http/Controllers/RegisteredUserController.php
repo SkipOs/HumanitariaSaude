@@ -34,6 +34,7 @@ class RegisteredUserController extends Controller
         $validator = Validator::make($request->all(), [
             'nome' => ['required'],
             'cpf' => ['required'],
+            'email' => ['required'],
             'dataNascimento' => ['required'],
             'endereco' => ['nullable'],
             'telefone' => ['nullable'],
@@ -60,6 +61,7 @@ class RegisteredUserController extends Controller
         // Agora insira o CPF sem a formatação
         Paciente::create([
             'cpf' => $cpf,
+            'email' => $request->input('email'),
             'idUsuario' => $usuario->idUsuario,
             'dataNascimento' => $request->input('dataNascimento'),
             'endereco' => $request->input('endereco'),

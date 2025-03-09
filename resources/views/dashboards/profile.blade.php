@@ -30,7 +30,9 @@
                     <h3 class="card-title">Detalhes do Perfil</h3>
                     <x-input type="text" class="form-control" value="{{ $user->nome }}" readonly>Nome</x-input>
 
+
                     @if (Auth::user()->tipo == 'paciente')
+                        <x-input type="text" class="form-control col-md-4" value="{{ $user->paciente->email }}" readonly>E-mail</x-input>
                         <!-- Informações Gerais -->
                         <h3 class="card-title mt-4">Informações Gerais</h3>
                         <div class="row g-2">
@@ -61,6 +63,8 @@
 
 
                     @if (Auth::user()->tipo == 'profissionalSaude')
+                    <x-input type="text" class="form-control col-md-4" value="{{ $user->profissionalSaude->email }}" readonly>E-mail</x-input>
+
                         <!-- Informações Gerais -->
                         <h3 class="card-title mt-4">Informações Gerais</h3>
                         <div class="row g-2">
@@ -88,6 +92,7 @@
 
 
                     @if (Auth::user()->tipo == 'administrador')
+                    <x-input type="text" class="form-control col-md-4" value="{{ $user->administrador->email }}" readonly>E-mail</x-input>
                         <!-- Informações Gerais -->
                         <h3 class="card-title mt-4">Informações Gerais</h3>
                         <div class="row g-2">

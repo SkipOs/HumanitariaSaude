@@ -14,8 +14,8 @@
         @endif
         <script src="https://unpkg.com/imask"></script>
 
-        <x-input type="text" name='telefone' id='telefone' class="form-control maska" data-maska="['(##) #####-####','(##) ####-####']"
-            data-mask-visible="true" placeholder="(00) 00000-0000" autocomplete="off">Telefone</x-input>
+        <x-input type="text" name='email' id='email' class="form-control"  placeholder="Insira seu email" autocomplete="off" required>Email</x-input>
+
 
         <x-input type="password" name='senha' id='senha' class="form-control"
             placeholder="••••••••">Senha</x-input>

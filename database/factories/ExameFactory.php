@@ -14,7 +14,7 @@ class ExameFactory extends Factory
         return [
             'idProntuario' => \App\Models\Prontuario::factory(),
             'tipo' => $this->faker->word,
-            'resultado' => $this->faker->paragraph,
+            'resultado' => null,
             'idAgendamento' => \App\Models\Agendamento::factory(),
         ];
     }

@@ -12,6 +12,7 @@ class PacienteFactory extends Factory
     public function definition()
     {
         return [
+            'email' => fake()->unique()->safeEmail(),
             'cpf' => $this->faker->unique()->numberBetween(10000000000, 99999999999),
             'idUsuario' => \App\Models\Usuario::factory()->create(['tipo'=>'paciente']),
             'dataNascimento' => $this->faker->date('Y-m-d', '2005-12-31'),

@@ -33,16 +33,12 @@ class SessionController extends Controller
     {
         // Validar os dados de entrada
         $request->validate([
-            'cpf' => ['required'],
+            'email' => ['required'],
             'senha' => ['required', Password::min(4)],
         ]);
 
-        $cpf = str_replace(['.', '-'], '', $request->input('cpf'));
-
-        $request['cpf'] = $cpf;
-
         // Verificar se o CPF existe na tabela pacientes
-        $usuario = Paciente::where('cpf', $request->cpf)->first();
+        $usuario = Paciente::where('email', $request->email)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
             // Login bem-sucedido
@@ -52,7 +48,7 @@ class SessionController extends Controller
 
         } else {
             // Caso o login falhe
-            return redirect()->back()->with('error', 'CPF ou senha inválidos.');
+            return redirect()->back()->with('error', 'email ou senha inválidos.');
         }
     }
 
@@ -60,18 +56,14 @@ class SessionController extends Controller
     {
         // Validar os dados de entrada
         $request->validate([
-            'telefone' => ['required'],
+            'email' => ['required'],
             'senha' => ['required', Password::min(4)],
         ]);
 
-        $telefone = str_replace(['/', '-', ' ', '(', ')'], '', $request->input('telefone'));
-
-        $request['telefone'] = $telefone;
 
       //  dd($request->telefone   );
         // Verificar se o Telefone existe na tabela pacientes
-        $usuario = Administrador::where('telefone', $request->telefone)->first();
-
+        $usuario = Administrador::where('email', $request->email)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
             // Login bem-sucedido
@@ -82,7 +74,7 @@ class SessionController extends Controller
 
         } else {
             // Caso o login falhe
-            return redirect()->back()->with('error', 'Telefone ou senha inválidos.');
+            return redirect()->back()->with('error', 'email ou senha inválidos.');
         }
     }
 
@@ -90,12 +82,12 @@ class SessionController extends Controller
     {
         // Validar os dados de entrada
         $request->validate([
-            'crm' => ['required'],
+            'email' => ['required'],
             'senha' => ['required', Password::min(4)],
         ]);
 
         // Verificar se o crm existe na tabela pacientes
-        $usuario = ProfissionalSaude::where('crm', $request->crm)->first();
+        $usuario = ProfissionalSaude::where('email', $request->email)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
             // Login bem-sucedido
@@ -105,7 +97,7 @@ class SessionController extends Controller
 
         } else {
             // Caso o login falhe
-            return redirect()->back()->with('error', 'CRM ou senha inválidos.');
+            return redirect()->back()->with('error', 'email ou senha inválidos.');
         }
     }
 }

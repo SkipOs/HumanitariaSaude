@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id('cpf')->primary();
+            $table->string('email');
             $table->foreignIdFor(Usuario::class,'idUsuario');
             $table->date('dataNascimento');
             $table->text('endereco')->nullable();

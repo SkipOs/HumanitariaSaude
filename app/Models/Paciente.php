@@ -11,7 +11,7 @@ class Paciente extends Model
 
     protected $primaryKey = 'cpf';
 
-    protected $fillable = ['cpf','idUsuario', 'dataNascimento', 'endereco', 'telefone'];
+    protected $fillable = ['cpf', 'email', 'idUsuario', 'dataNascimento', 'endereco', 'telefone'];
 
     // Relacionamentos
     public function usuario()

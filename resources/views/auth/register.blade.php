@@ -14,6 +14,7 @@
 
         <x-input tabler="mb-3" name="nome" type="text" class="form-control" placeholder="Insira o seu Nome" required>Nome</x-input>
         <x-input tabler="mb-3" name="cpf" type="text" class="form-control maska" data-maska="###.###.###-##" placeholder="Insira o CPF" required>CPF</x-input>
+        <x-input tabler="mb-3" name="email" type="text" class="form-control" placeholder="Insira o Email" required>Email</x-input>
         <x-input tabler="mb-3" name="dataNascimento" type="date" class="form-control timedate" placeholder="__ /__ /____" required>Data de Nascimento</x-input>
         <x-input tabler="mb-3" name="endereco" type="text" class="form-control" placeholder="Cidade, Estado" >Endereço</x-input>
         <x-input tabler="mb-3" name="telefone" type="text" class="form-control maska" data-maska="(##) #####-####" placeholder="Digite seu Telefone" >Telefone</x-input>

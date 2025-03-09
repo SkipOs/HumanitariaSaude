@@ -15,7 +15,7 @@
 
         <script src="https://unpkg.com/imask"></script>
 
-        <x-input type="text" name='crm' id='crm' class="form-control" placeholder="" autocomplete="off">CRM</x-input>
+        <x-input type="text" name='email' id='email' class="form-control"  placeholder="Insira seu email" autocomplete="off" required>Email</x-input>
 
         <x-input type="password" name='senha' id='senha' class="form-control"
             placeholder="••••••••">Senha</x-input>

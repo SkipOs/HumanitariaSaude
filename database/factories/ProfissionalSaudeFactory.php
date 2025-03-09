@@ -12,6 +12,7 @@ class ProfissionalSaudeFactory extends Factory
     public function definition()
     {
         return [
+            'email' => fake()->unique()->safeEmail(),
             'crm' => $this->faker->unique()->numerify('########'),
             'idUsuario' => \App\Models\Usuario::factory()->create(['tipo'=>'profissionalSaude']),
             'especialidade' => $this->faker->jobTitle,

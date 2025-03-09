@@ -12,7 +12,7 @@ class Administrador extends Model
     protected $table = 'administrador'; // Define o nome da tabela como singular
     protected $primaryKey = 'idAdmin';
 
-    protected $fillable = ['idUsuario', 'telefone'];
+    protected $fillable = ['idUsuario', 'email', 'telefone'];
 
     // Relacionamentos
     public function usuario()

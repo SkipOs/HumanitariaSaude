@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Usuario;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('administrador', function (Blueprint $table) {
-            $table->id('idAdmin');
-            $table->string('email');
-            $table->foreignIdFor(Usuario::class, 'idUsuario');
-            $table->string('telefone', 25)->nullable();
+        Schema::create('files', function (Blueprint $table) {
+            $table->id('idArquivo')->primary();
+            $table->string('name');
+            $table->string('path');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('administrador');
+        Schema::dropIfExists('files');
     }
 };

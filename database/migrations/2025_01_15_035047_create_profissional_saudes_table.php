@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('profissional_saudes', function (Blueprint $table) {
             $table->id('crm')->primary();
+            $table->string('email');
             $table->foreignIdFor(Usuario::class,'idUsuario');
             $table->string('especialidade')->nullable();
             $table->timestamps();

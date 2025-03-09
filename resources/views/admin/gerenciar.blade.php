@@ -1,5 +1,5 @@
 @php
-use App\Models\Usuario;
+    use App\Models\Usuario;
     //dd($schema);
 @endphp
 
@@ -41,29 +41,29 @@ use App\Models\Usuario;
                                     @if ($tableName == 'profissional_saudes' || $tableName == 'administrador' || $tableName == 'pacientes')
                                         <div class="mb-2">
                                             <strong>Nome:</strong><span>
-                                                {{  Usuario::find($schema->idUsuario)->nome  }}
+                                                {{ Usuario::find($schema->idUsuario)->nome }}
                                             </span>
                                         </div>
                                     @endif
 
                                     @foreach ($schema as $key => $value)
-                                    @if ($key !== 'created_at' && $key !== 'updated_at' && $key !== 'idUsuario')
-                                    <div class="mb-2">
-                                            <strong>{{ ucfirst(str_replace('_', ' ', $key)) }}:</strong>
-                                            @if (is_array($value) || is_object($value))
-                                                <pre class="text-break" style="white-space: pre-wrap; word-wrap: break-word;">
+                                        @if ($key !== 'created_at' && $key !== 'updated_at' && $key !== 'idUsuario')
+                                            <div class="mb-2">
+                                                <strong>{{ ucfirst(str_replace('_', ' ', $key)) }}:</strong>
+                                                @if (is_array($value) || is_object($value))
+                                                    <pre class="text-break" style="white-space: pre-wrap; word-wrap: break-word;">
                                                                                       {{ json_encode($value, JSON_PRETTY_PRINT) }}
                                                                                   </pre>
-                                            @else
-                                                <span>{{ $value }}</span>
-                                            @endif
-                                        </div>
+                                                @else
+                                                    <span>{{ $value }}</span>
+                                                @endif
+                                            </div>
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
                                     <!-- Usando a chave primária dinamicamente -->
-                                    <button class="btn btn-primary" data-bs-toggle="modal"
+                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
                                         data-bs-target="#edit-{{ $schema->{$primaryKey} }}">
                                         Editar
                                     </button>
@@ -71,8 +71,14 @@ use App\Models\Usuario;
                                         method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger">Excluir</button>
+                                        <button class="btn btn-danger mb-2">Excluir</button>
                                     </form>
+                                    @if ($tableName == 'exames')
+                                        <button class="btn btn-sucess mb-2" data-bs-toggle="modal"
+                                            data-bs-target="#add-{{ $schema->{$primaryKey} }}">
+                                            Adicionar Resultado
+                                        </button>
+                                    @endif
                                 </td>
                             </tr>
                             <!-- Modal de Editar -->
@@ -83,17 +89,15 @@ use App\Models\Usuario;
                                     @method('POST')
                                     <div class="mb-3">
                                         @if ($tableName == 'profissional_saudes' || $tableName == 'administrador' || $tableName == 'pacientes')
-                                        <div class="mb-2">
-                                            <label for="nome"
-                                                class="form-label">Nome:</label>
-                                            <input type="text" id="nome"
-                                                name="nome" class="form-control"
-                                                value="{{  Usuario::find($schema->idUsuario)->nome  }}">
-                                        </div>
+                                            <div class="mb-2">
+                                                <label for="nome" class="form-label">Nome:</label>
+                                                <input type="text" id="nome" name="nome" class="form-control"
+                                                    value="{{ Usuario::find($schema->idUsuario)->nome }}">
+                                            </div>
                                         @endif
 
                                         @foreach ($schema as $key => $value)
-                                            @if ($key !== 'created_at' && $key !== 'updated_at' && $key !== 'idUsuario')
+                                            @if ($key !== 'created_at' && $key !== 'updated_at' && $key !== 'idUsuario' && $key !== 'resultado')
                                                 <!-- Não exibe o campo 'created_at' -->
                                                 <div class="mb-2">
                                                     <label for="{{ $key }}"
@@ -114,6 +118,25 @@ use App\Models\Usuario;
                                     </div>
                                 </form>
                             </x-modal>
+
+                            <!-- Modal de Adicionar novo Resultado -->
+                            <x-modal id="add-{{ $schema->{$primaryKey} }}" title="Adicionar Resultado de Exame">
+                                <form action="/file-upload" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="file" name="file">
+
+                                    @if (session('message'))
+                                        <p>{{ session('message') }}</p>
+                                    @endif
+                                    <input type="hidden" name="updated_at" value="{{ now() }}">
+                                    <!-- Atualiza 'updated_at' para a data atual -->
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Realizar Upload</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Fechar</button>
+                                    </div>
+                                </form>
+                            </x-modal>
                         @endforeach
                     </x-slot:rows>
                 </x-table>
@@ -128,18 +151,16 @@ use App\Models\Usuario;
             @method('POST')
             <div class="mb-3">
                 @if ($tableName == 'profissional_saudes' || $tableName == 'administrador' || $tableName == 'pacientes')
-                <div class="mb-2">
-                    <label for="nome"
-                        class="form-label">Nome:</label>
-                    <input type="text" id="nome"
-                        name="nome" class="form-control"
-                        value="" required>
-                </div>
+                    <div class="mb-2">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" value=""
+                            required>
+                    </div>
                 @endif
 
                 @foreach ($schema as $key => $value)
-                @if ($key !== 'created_at' && $key !== 'updated_at' && $key !== 'idUsuario')
-                <!-- Exclui os campos 'created_at' e 'updated_at' -->
+                    @if ($key !== 'created_at' && $key !== 'updated_at' && $key !== 'idUsuario')
+                        <!-- Exclui os campos 'created_at' e 'updated_at' -->
                         <div class="mb-2">
                             <label for="{{ $key }}"
                                 class="form-label">{{ ucfirst(str_replace('_', ' ', $key)) }}:</label>

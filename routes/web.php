@@ -204,3 +204,10 @@ Route::get('/prontuarios', function () {
         'data' => $data,
     ]);
 });
+
+
+use App\Http\Controllers\FileController;
+
+Route::get('/file-upload', [FileController::class, 'showUploadForm']);
+Route::post('/file-upload', [FileController::class, 'store']);
+

@@ -10,7 +10,7 @@ class ProfissionalSaude extends Model
     use HasFactory;
     protected $id = 'crm';
 
-    protected $fillable = ['crm', 'idUsuario', 'especialidade'];
+    protected $fillable = ['crm', 'email', 'idUsuario', 'especialidade'];
 
     // Relacionamentos
     public function usuario()
