@@ -1,4 +1,8 @@
 <x-clear-page>
+
+    <x-slot:link>href="/home"</x-slot:link>
+    <x-slot:linkname>Voltar</x-slot:linkname>
+
     <x-form class="card card-md" action="/psaude/profissional" method="post">
         <x-slot:title>Profissional De Saúde</x-slot:title>
 

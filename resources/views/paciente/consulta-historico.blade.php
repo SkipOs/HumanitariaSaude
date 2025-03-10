@@ -12,7 +12,8 @@
         ->select(['*'])
         ->get();
 
-    //dd($data);
+
+        //dd($data, now()->toDateTimeString());
 
 @endphp
 

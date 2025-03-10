@@ -37,7 +37,7 @@ class SessionController extends Controller
             'senha' => ['required', Password::min(4)],
         ]);
 
-        // Verificar se o CPF existe na tabela pacientes
+        // Verificar se o email existe na tabela pacientes
         $usuario = Paciente::where('email', $request->email)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
@@ -61,8 +61,8 @@ class SessionController extends Controller
         ]);
 
 
-      //  dd($request->telefone   );
-        // Verificar se o Telefone existe na tabela pacientes
+        //  dd($request->telefone   );
+        // Verificar se o Email existe na tabela admin
         $usuario = Administrador::where('email', $request->email)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {
@@ -86,7 +86,7 @@ class SessionController extends Controller
             'senha' => ['required', Password::min(4)],
         ]);
 
-        // Verificar se o crm existe na tabela pacientes
+        // Verificar se o email existe na tabela profissional
         $usuario = ProfissionalSaude::where('email', $request->email)->first();
 
         if ($usuario && Hash::check($request->senha, $usuario->usuario->senha)) {

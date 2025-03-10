@@ -1,4 +1,8 @@
 <x-clear-page>
+
+    <x-slot:link>href="/home"</x-slot:link>
+    <x-slot:linkname>Voltar</x-slot:linkname>
+
     <x-form class="card card-md" action="/myadmin/admin" method="post">
         <x-slot:title>Admin</x-slot:title>
 
