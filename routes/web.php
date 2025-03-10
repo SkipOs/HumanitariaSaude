@@ -31,7 +31,7 @@ Route::post('/psaude/profissional', [SessionController::class, 'loginProfissonal
 
 Route::get('/logout', function(){
     Auth::logout();
-    return redirect('/login');
+    return redirect('/home');
 });
 
 //Route::middleware('auth')->group(function () {
@@ -211,3 +211,4 @@ use App\Http\Controllers\FileController;
 Route::get('/file-upload', [FileController::class, 'showUploadForm']);
 Route::post('/file-upload', [FileController::class, 'store']);
 
+Route::view('/home', 'home');

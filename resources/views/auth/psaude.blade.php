@@ -3,15 +3,7 @@
         <x-slot:title>Profissional De Saúde</x-slot:title>
 
         <!-- Exibindo mensagens de sucesso ou erro -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        <x-alert-message></x-alert-message>
 
         <script src="https://unpkg.com/imask"></script>
 

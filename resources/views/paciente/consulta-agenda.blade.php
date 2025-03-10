@@ -19,7 +19,7 @@ use Carbon\Carbon;
     </x-slot:heading>
 
     <div class="container mt-4">
-<x-alert-message></x-alert-message>
+    <x-alert-message></x-alert-message>
 
         <div class="card">
             <x-table>

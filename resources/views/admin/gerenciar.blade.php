@@ -16,15 +16,8 @@
             </button>
         </div>
         <!-- Exibindo mensagens de sucesso ou erro -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        <x-alert-message></x-alert-message>
+
         <!-- Tabela -->
         <div class="card">
             @if ($data != null)
@@ -125,9 +118,6 @@
                                     @csrf
                                     <input type="file" name="file">
 
-                                    @if (session('message'))
-                                        <p>{{ session('message') }}</p>
-                                    @endif
                                     <input type="hidden" name="updated_at" value="{{ now() }}">
                                     <!-- Atualiza 'updated_at' para a data atual -->
                                     <div class="modal-footer">

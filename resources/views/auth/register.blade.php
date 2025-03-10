@@ -2,15 +2,7 @@
     <x-form class="card card-mb" action="/register" method="POST">
         <x-slot:title>Cadastro</x-slot:title>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        <x-alert-message></x-alert-message>
 
         <x-input tabler="mb-3" name="nome" type="text" class="form-control" placeholder="Insira o seu Nome" required>Nome</x-input>
         <x-input tabler="mb-3" name="cpf" type="text" class="form-control maska" data-maska="###.###.###-##" placeholder="Insira o CPF" required>CPF</x-input>

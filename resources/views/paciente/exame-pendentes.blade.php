@@ -18,15 +18,7 @@
 
     <div class="container mt-4">
         <!-- Exibindo mensagens de sucesso ou erro -->
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        <x-alert-message></x-alert-message>
 
         <div class="card">
             <x-table>

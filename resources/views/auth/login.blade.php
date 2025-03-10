@@ -2,15 +2,7 @@
     <x-form class="card card-md" action="/login" method="post">
         <x-slot:title>Realizar login</x-slot:title>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @elseif(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        <x-alert-message></x-alert-message>
 
         <script src="https://unpkg.com/imask"></script>
 
