@@ -21,10 +21,24 @@ class TableController extends Controller
         $data['updated_at'] = now();
 
         if ($table == 'profissional_saudes' || $table == 'administrador' || $table == 'pacientes') {
+            if ($table == 'profissional_saudes') {
+                $tipo = 'profissionalSaude';
+            }
+            if ($table == 'administrador') {
+                $tipo = 'administrador';
+            }
+            if ($table == 'pacientes') {
+                $tipo = 'paciente';
+            }
+
             $user = Usuario::factory()->create([
                 'nome' => $request['nome'],
+                'senha' => bcrypt('password'),
+                'tipo' => $tipo,
             ]);
+
             $data['idUsuario'] = $user->idUsuario;
+
             if ($table == 'pacientes') {
                 Prontuario::factory()->create([
                     'cpf' => $request->cpf,

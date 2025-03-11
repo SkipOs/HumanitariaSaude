@@ -96,7 +96,7 @@ class ExameController extends Controller
        DB::table(table: 'consultas')->where('idConsulta', $id)->update(['motivo'=>$request->input('motivo')]);
 
         // Redireciona de volta com a mensagem de sucesso
-        return redirect('/psca')->with('success', 'Exame encerrado com sucesso!');
+        return redirect('/psca')->with('success', 'Consulta encerrada com sucesso!');
     }
 
 
@@ -108,6 +108,6 @@ class ExameController extends Controller
         DB::table(table: 'agendamentos')->where('idAgendamento', $id)->delete();
 
         // Redireciona de volta com a mensagem de sucesso
-        return redirect()->back()->with('success', 'Exame cancelado com sucesso!');
+        return redirect()->back()->with('success', 'Cancelado com sucesso!');
     }
 }

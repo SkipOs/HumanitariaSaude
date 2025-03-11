@@ -30,6 +30,9 @@
 @endphp
 
 <x-clear-page>
+    <x-slot:link>href="/psca"</x-slot:link>
+    <x-slot:linkname>Voltar</x-slot:linkname>
+
     <x-alert-message></x-alert-message>
     <div class="container mt-4">
         <div class="card">
@@ -41,8 +44,8 @@
 
                     <div class="mb-3">
                         <label class="form-label">Motivo Consulta</label>
-                        <input type="text" class="form-control" name="motivo" id="motivo"
-                            placeholder="Motivo da consulta" value="{{ $consulta->motivo }}">
+                        <textarea class="form-control" name="motivo" id="motivo"
+                            placeholder="Motivo da consulta">{{ $consulta->motivo }}</textarea>
                     </div>
 
                     <div class="mb-3">
@@ -84,28 +87,33 @@
                         <div id="collapse-{{ $exame->idExame }}" class="accordion-collapse collapse"
                             data-bs-parent="#accordion-example" style="">
                             <div class="accordion-body pt-0">
-                                @if ($exame->updated_at != $exame->created_at)
-                                    <h2>Resultado do exame: Pronto</h2>
-                                    <label class="mb-2">{{ $exame->resultado }}</label>
-                                    @if (Diagnostico::where('idExame', $exame->idExame)->first() == null)
-                                        <div class="mt-3"> <a href="#" class="btn btn-2" data-bs-toggle="modal"
-                                                data-bs-target="#modal-diagnóstico-{{ $exame->idExame }}">
-                                                Diagnosticar
-                                            </a></div>
-                                    @elseif (Diagnostico::where('idExame', $exame->idExame)->first() != null)
-                                        <h2>Diagnóstico:</h2>
-                                        <label>{{ Diagnostico::where('idExame', $exame->idExame)->first()->descricao }}</label>
-                                    @endif
-                                @elseif ($exame->updated_at == $exame->created_at)
-                                    <h2>Resultado do exame: Indisponível</h2>
+                                <h2>Resultado do exame:
+                                @if ($exame->resultado != null)
+                                        Pronto
+                                </h2>
+                                <p>{{ Storage::url(DB::table('files')->where('idArquivo', $exame->resultado)->first()->name) }}</p>
+                                <a href="{{ Storage::url(DB::table('files')->where('idArquivo', $exame->resultado)->get('path')->first()->path) }}"
+                                    target="_blank">
+                                    <button class="btn"><i class="fa fa-download"></i>Baixar Resultado</button>
+                                </a>
+
+                                @if (Diagnostico::where('idExame', $exame->idExame)->first() == null)
+                                    <div class="mt-3"> <a href="#" class="btn btn-2" data-bs-toggle="modal"
+                                            data-bs-target="#modal-diagnóstico-{{ $exame->idExame }}">
+                                            Diagnosticar
+                                        </a></div>
+                                @elseif (Diagnostico::where('idExame', $exame->idExame)->first() != null)
+                                    <h2>Diagnóstico:</h2>
+                                    <label>{{ Diagnostico::where('idExame', $exame->idExame)->first()->descricao }}</label>
                                 @endif
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
+                            @else
+                                Indisponível</h2>
+                @endif
             </div>
         </div>
     </div>
+    @endforeach
+
 </x-clear-page>
 @foreach ($exames as $exame)
     @if (Diagnostico::where('idExame', $exame->idExame)->first() == null)
@@ -126,7 +134,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label">Resultado Exame</label>
-                                <span>{{ $exame->resultado }}</span>
+                                <span>{{ $exame->tipo }}</span>
                             </div>
                             <div class="col-lg-12">
                                 <label class="form-label">Diagnóstico</label>

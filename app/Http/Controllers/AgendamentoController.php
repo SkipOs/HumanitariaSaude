@@ -52,6 +52,5 @@ class AgendamentoController extends Controller
             'motivo' => '',
         ]);
 
-        return redirect()->back()->with('success', 'Exame agendado com sucesso!');
     }
 }

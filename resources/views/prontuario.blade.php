@@ -5,7 +5,7 @@
     use Illuminate\Support\Facades\DB;
     use App\Models\Prontuario;
     use App\Models\Prescricao;
-
+    use App\Models\Diagnostico;
 
     if (Auth::user()->tipo == 'paciente') {
         $cpf = Auth::user()->cpf;
@@ -76,31 +76,24 @@
                         <x-modal id="detalhesModal{{ $row->key }}" title="Detalhes">
                             <h3>{{ $row->descricao }} - {{ Carbon::parse($row->data)->format('d/m/Y') }}</h3>
                             <div class="mb-3">
-
                                 @if ($row->descricao != 'Consulta')
-                                   <h2>Resultado do exame:
+                                    <h2>Resultado do exame:
                                     @if ($row->info != null)
-                                        Pronto</h2>
-                                        {{
-                                            Storage::url(
-                                                DB::table('files')
-                                                ->where('idArquivo', $row->info)
-                                                ->get('path')->first()->path
-                                            )
-                                            }}
-                                        <a href="{{
-                                        Storage::url(
-                                            DB::table('files')
-                                            ->where('idArquivo', $row->info)
-                                            ->get('path')->first()->path
-                                        )
-                                        }}" target="_blank">
-                                            <button class="btn"><i class="fa fa-download"></i> Baixar Resultado</button>
+                                            Pronto
+                                        </h2>
+                                        <p>{{ Storage::url(DB::table('files')->where('idArquivo', $row->info)->first()->name) }}<p>
+                                        <a href="{{ Storage::url(DB::table('files')->where('idArquivo', $row->info)->get('path')->first()->path) }}"
+                                        target="_blank">
+                                        <button class="btn"><i class="fa fa-download"></i>Baixar Resultado</button>
                                         </a>
                                     @else
                                         Indisponível</h2>
                                     @endif
 
+                                    @if (Diagnostico::where('idExame', $row->idUnico)->first() != null)
+                                     <h2>Diagnóstico:</h2>
+                                    <label>{{ Diagnostico::where('idExame', $row->idUnico)->first()->descricao }}</label>
+                                    @endif
                                 @endif
 
                                 @if ($row->descricao == 'Consulta')
@@ -118,9 +111,9 @@
                                 @endif
                             </div>
                         </x-modal>
-                    @endforeach
-                </x-slot:rows>
-            </x-table>
-        </div>
+        @endforeach
+        </x-slot:rows>
+        </x-table>
+    </div>
     </div>
 </x-layout>
