@@ -11,8 +11,6 @@
 
 <x-head></x-head>
 
-
-
 <body>
     <header class="navbar navbar-expand-lg py-3">
         <div class="container">

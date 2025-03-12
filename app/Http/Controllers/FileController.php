@@ -25,5 +25,6 @@ class FileController extends Controller
         ]);
         return redirect()->back()->with('message', 'File uploaded successfully.');
     }
+
 }
 

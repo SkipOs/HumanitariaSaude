@@ -207,8 +207,10 @@ Route::get('/prontuarios', function () {
 
 
 use App\Http\Controllers\FileController;
-
 Route::get('/file-upload', [FileController::class, 'showUploadForm']);
 Route::post('/file-upload', [FileController::class, 'store']);
+Route::post('/file-download/{id}', [FileController::class, 'download']);
+
+Route::view('/test', 'testpage');
 
 Route::view('/home', 'home');
